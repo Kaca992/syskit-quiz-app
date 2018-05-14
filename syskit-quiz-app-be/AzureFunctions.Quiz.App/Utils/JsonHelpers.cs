@@ -31,10 +31,13 @@ namespace AzureFunctions.Quiz.App.Utils
             return JsonConvert.SerializeObject(dataObject, serializerSettings);
         }
         
-        public static HttpResponseMessage CreateResponse<T>(HttpRequestMessage requestMessage, T dataObject, HttpStatusCode status = HttpStatusCode.OK)
+        public static HttpResponseMessage CreateResponse<T>(T dataObject, HttpStatusCode status = HttpStatusCode.OK)
         {
             var json = SerializeObject(dataObject);
-            return requestMessage.CreateResponse(status, json, JsonMediaTypeFormatter.DefaultMediaType);
+            return new HttpResponseMessage(status)
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
         }
     }
 }

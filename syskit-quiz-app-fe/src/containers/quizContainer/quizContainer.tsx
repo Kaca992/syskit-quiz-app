@@ -5,9 +5,10 @@ import { autobind } from 'core-decorators';
 import { IQuestion, IParticipantAnswers } from 'common/data';
 import { getQuestions } from '../../service/questions.service';
 import QuizComponent from 'components/quizComponent/quizComponent';
+import _ = require('lodash');
 
 export interface IQuizContainerProps {
-
+    submitAnswers(answers: IParticipantAnswers[]): void;
 }
 
 export interface IQuizContainerState {
@@ -40,9 +41,8 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
             return <div>Loading...</div>;
         }
 
-        const currentQuestion = questions[questionIndex];
         return <QuizComponent
-            question={currentQuestion}
+            question={questions[questionIndex]}
             questionIndex={questionIndex}
             totalQuestions={questions.length}
             onAnswerSelected={this._onAnswerSelected}
@@ -53,7 +53,7 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
     private _onAnswerSelected(idQuestion: number, idAnswer: number) {
         const {questions, questionIndex, answers} = this.state;
 
-        const newAnswers = {...answers};
+        const newAnswers = _.cloneDeep(answers);
         const index = newAnswers.findIndex(x => x.questionId === idQuestion);
 
         if (index === -1) {
@@ -62,8 +62,14 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
             newAnswers[index].answerId = idAnswer;
         }
 
+        // check if last question
+        if (questionIndex === (questions.length - 1)) {
+            // return results
+        }
+
         this.setState({
-            answers: newAnswers
+            answers: newAnswers,
+            questionIndex: questionIndex + 1
         });
     }
 }

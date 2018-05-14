@@ -55,12 +55,12 @@ namespace AzureFunctions.Quiz.App.Functions
 
             try
             {
-                return JsonHelpers.CreateResponse(req, participantService.GetAllParticipants());
+                return JsonHelpers.CreateResponse(participantService.GetAllParticipants());
             }
             catch (Exception e)
             {
                 log.Error(e.Message);
-                return JsonHelpers.CreateResponse(req, e, HttpStatusCode.InternalServerError);
+                return JsonHelpers.CreateResponse(e, HttpStatusCode.InternalServerError);
             }
         }
     }

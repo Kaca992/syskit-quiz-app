@@ -30,13 +30,14 @@ export default class QuizComponent extends React.Component<IQuizComponentProps, 
 
     public render() {
         const { question, questionIndex, totalQuestions } = this.props;
+        const index = questionIndex + 1;
 
         return (
             <div className="question-container">
                 <Header questionText={question.questionText}
-                        questionIndex={questionIndex}
+                        questionIndex={index}
                         totalQuestions={totalQuestions} />
-                <ProgressBar percentage={questionIndex / totalQuestions} />
+                <ProgressBar percentage={index / totalQuestions} />
                 <div className="question-answers-container">
                     {question.answers.map(answer => {
                         return <QuestionAnswer
@@ -60,7 +61,6 @@ export default class QuizComponent extends React.Component<IQuizComponentProps, 
 
     @autobind
     private _onAnswerAccept(answerId: number) {
-        console.log(`Answer: ${answerId}`);
         this.props.onAnswerSelected(this.props.question.id, answerId);
     }
 }

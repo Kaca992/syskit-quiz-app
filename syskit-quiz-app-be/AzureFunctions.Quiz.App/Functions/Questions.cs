@@ -47,12 +47,12 @@ namespace AzureFunctions.Quiz.App.Functions
             try
             {
                 var questionService = new QuestionService();
-                return JsonHelpers.CreateResponse(req, questionService.GetQuestions(number));
+                return JsonHelpers.CreateResponse(questionService.GetQuestions(number));
             }
             catch (Exception e)
             {
                 log.Error(e.Message);
-                return JsonHelpers.CreateResponse(req, e, HttpStatusCode.InternalServerError);
+                return JsonHelpers.CreateResponse(e, HttpStatusCode.InternalServerError);
             }
         }
     }
