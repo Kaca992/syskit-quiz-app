@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AzureFunctions.Quiz.DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Course" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnrollmentYear" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Result" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParticipantAnswers">
+          <Key>
+            <PropertyRef Name="ParticipantId" />
+            <PropertyRef Name="QuestionAnswerId" />
+          </Key>
+          <Property Name="ParticipantId" Type="int" Nullable="false" />
+          <Property Name="QuestionAnswerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionText" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CorrectAnswerId" Type="int" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="AnswerText" Type="nvarchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ParticipantAnswers_Participant">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ParticipantAnswers" Type="Self.ParticipantAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParticipantAnswers">
+              <PropertyRef Name="ParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParticipantAnswers_QuestionAnswer">
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="1" />
+          <End Role="ParticipantAnswers" Type="Self.ParticipantAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionAnswer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParticipantAnswers">
+              <PropertyRef Name="QuestionAnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_CorrectAnswer">
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionAnswer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CorrectAnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AzureFunctionsQuizDatabaseModelStoreContainer">
+          <EntitySet Name="Participant" EntityType="Self.Participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParticipantAnswers" EntityType="Self.ParticipantAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionAnswer" EntityType="Self.QuestionAnswer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ParticipantAnswers_Participant" Association="Self.FK_ParticipantAnswers_Participant">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="ParticipantAnswers" EntitySet="ParticipantAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParticipantAnswers_QuestionAnswer" Association="Self.FK_ParticipantAnswers_QuestionAnswer">
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+            <End Role="ParticipantAnswers" EntitySet="ParticipantAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_CorrectAnswer" Association="Self.FK_Question_CorrectAnswer">
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_Question" Association="Self.FK_QuestionAnswer_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AzureFunctions.Quiz.DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QuizContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Participants" EntityType="AzureFunctions.Quiz.DatabaseModel.Participant" />
+          <EntitySet Name="Questions" EntityType="AzureFunctions.Quiz.DatabaseModel.Question" />
+          <EntitySet Name="QuestionAnswers" EntityType="AzureFunctions.Quiz.DatabaseModel.QuestionAnswer" />
+          <AssociationSet Name="FK_Question_CorrectAnswer" Association="AzureFunctions.Quiz.DatabaseModel.FK_Question_CorrectAnswer">
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_Question" Association="AzureFunctions.Quiz.DatabaseModel.FK_QuestionAnswer_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="ParticipantAnswers" Association="AzureFunctions.Quiz.DatabaseModel.ParticipantAnswers">
+            <End Role="Participant" EntitySet="Participants" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Course" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnrollmentYear" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Result" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="AzureFunctions.Quiz.DatabaseModel.ParticipantAnswers" FromRole="Participant" ToRole="QuestionAnswer" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionText" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswerId" Type="Int32" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="QuestionAnswer" Relationship="AzureFunctions.Quiz.DatabaseModel.FK_Question_CorrectAnswer" FromRole="Question" ToRole="QuestionAnswer" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="AzureFunctions.Quiz.DatabaseModel.FK_QuestionAnswer_Question" FromRole="Question" ToRole="QuestionAnswer" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="AnswerText" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Questions" Relationship="AzureFunctions.Quiz.DatabaseModel.FK_Question_CorrectAnswer" FromRole="QuestionAnswer" ToRole="Question" />
+          <NavigationProperty Name="Question" Relationship="AzureFunctions.Quiz.DatabaseModel.FK_QuestionAnswer_Question" FromRole="QuestionAnswer" ToRole="Question" />
+          <NavigationProperty Name="Participants" Relationship="AzureFunctions.Quiz.DatabaseModel.ParticipantAnswers" FromRole="QuestionAnswer" ToRole="Participant" />
+        </EntityType>
+        <Association Name="FK_Question_CorrectAnswer">
+          <End Type="AzureFunctions.Quiz.DatabaseModel.QuestionAnswer" Role="QuestionAnswer" Multiplicity="0..1" />
+          <End Type="AzureFunctions.Quiz.DatabaseModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionAnswer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CorrectAnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_Question">
+          <End Type="AzureFunctions.Quiz.DatabaseModel.Question" Role="Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AzureFunctions.Quiz.DatabaseModel.QuestionAnswer" Role="QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ParticipantAnswers">
+          <End Type="AzureFunctions.Quiz.DatabaseModel.Participant" Role="Participant" Multiplicity="*" />
+          <End Type="AzureFunctions.Quiz.DatabaseModel.QuestionAnswer" Role="QuestionAnswer" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AzureFunctionsQuizDatabaseModelStoreContainer" CdmEntityContainer="QuizContext">
+          <EntitySetMapping Name="Participants">
+            <EntityTypeMapping TypeName="AzureFunctions.Quiz.DatabaseModel.Participant">
+              <MappingFragment StoreEntitySet="Participant">
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="EnrollmentYear" ColumnName="EnrollmentYear" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="AzureFunctions.Quiz.DatabaseModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="CorrectAnswerId" ColumnName="CorrectAnswerId" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionAnswers">
+            <EntityTypeMapping TypeName="AzureFunctions.Quiz.DatabaseModel.QuestionAnswer">
+              <MappingFragment StoreEntitySet="QuestionAnswer">
+                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ParticipantAnswers" TypeName="AzureFunctions.Quiz.DatabaseModel.ParticipantAnswers" StoreEntitySet="ParticipantAnswers">
+            <EndProperty Name="QuestionAnswer">
+              <ScalarProperty Name="Id" ColumnName="QuestionAnswerId" />
+            </EndProperty>
+            <EndProperty Name="Participant">
+              <ScalarProperty Name="Id" ColumnName="ParticipantId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions.Quiz.App", "AzureFunctions.Quiz.App\AzureFunctions.Quiz.App.csproj", "{6C33E6C8-4B5C-4C2A-95E4-93468CAE904D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions.Quiz.Model", "AzureFunctions.Quiz.Model\AzureFunctions.Quiz.Model.csproj", "{309AE96B-B9CF-442B-8974-6828541A7E1D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AzureFunctions.Quiz.Database", "AzureFunctions.Quiz.Database\AzureFunctions.Quiz.Database.sqlproj", "{F1F9BA66-0B55-4CA7-9A8D-C934A4D90E0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C33E6C8-4B5C-4C2A-95E4-93468CAE904D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C33E6C8-4B5C-4C2A-95E4-93468CAE904D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C33E6C8-4B5C-4C2A-95E4-93468CAE904D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C33E6C8-4B5C-4C2A-95E4-93468CAE904D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309AE96B-B9CF-442B-8974-6828541A7E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309AE96B-B9CF-442B-8974-6828541A7E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309AE96B-B9CF-442B-8974-6828541A7E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309AE96B-B9CF-442B-8974-6828541A7E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F9BA66-0B55-4CA7-9A8D-C934A4D90E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F9BA66-0B55-4CA7-9A8D-C934A4D90E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F9BA66-0B55-4CA7-9A8D-C934A4D90E0B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F1F9BA66-0B55-4CA7-9A8D-C934A4D90E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F9BA66-0B55-4CA7-9A8D-C934A4D90E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F9BA66-0B55-4CA7-9A8D-C934A4D90E0B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F07E7A8F-CA03-4168-9A6C-808F49032F5C}
+	EndGlobalSection
+EndGlobal

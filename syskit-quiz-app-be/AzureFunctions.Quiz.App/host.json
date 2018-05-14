@@ -1,0 +1,12 @@
+{
+  "http": {
+    "routePrefix": "api",
+    "maxOutstandingRequests": -1,
+    "maxConcurrentRequests": -1,
+    "dynamicThrottlesEnabled": false
+  },
+  "tracing": {
+    "consoleLevel": "verbose",
+    "fileLoggingMode": "debugOnly"
+  }
+}
