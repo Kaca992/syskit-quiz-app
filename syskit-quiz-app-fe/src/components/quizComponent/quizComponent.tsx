@@ -7,17 +7,7 @@ import './quizComponent.scss';
 import { Header } from './components/header';
 import QuestionAnswer from './components/questionAnswer';
 import { ProgressBar } from 'components/quizComponent/components/progressBar';
-
-export interface IQuestion {
-    id: number;
-    questionText: string;
-    answers: IQuestionAnswer[];
-}
-
-export interface IQuestionAnswer {
-    id: number;
-    answerText: string;
-}
+import { IQuestion } from 'common/data';
 
 export interface IQuizComponentProps {
     question: IQuestion;
