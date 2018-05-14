@@ -1,0 +1,110 @@
+$container-bg-color: transparentize(#4e4e4f, .94);
+$header-font-size: 20;
+$answer-font-size: 16;
+$header-color: #FAFAFA;
+$answer-color: #707070;
+$clicked-color: #F79428;
+
+@mixin font-size($sizeValue) {
+    font-size: ($sizeValue / 16) * 1rem;
+}
+
+.question-container{
+    width: 100%;
+    height: 100vh;
+
+    font-family: 'Roboto', sans-serif;
+
+    overflow-wrap: break-word;
+    white-space: normal;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: $container-bg-color;
+
+    .question-header{
+        min-height: 100px;
+        max-height: 180px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 4% 4% 8% 4%;
+
+        background-color: #4D4D4F;
+        border-bottom-left-radius: 20%;
+        border-bottom-right-radius: 20%;
+
+        .question-header_index {
+            align-self: flex-start;
+
+            @include font-size(14);
+            color: transparentize($header-color, .05);
+
+            margin-bottom: 10px;
+        }
+
+        .question-header_text {
+            @include font-size($header-font-size);
+            color: $header-color;
+
+            overflow: auto;
+            text-overflow: clip;
+            white-space: normal;
+        }
+    }
+
+    .question-answers-container {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+
+        @include font-size($answer-font-size);
+        color: $answer-color;
+
+        .question-answer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            background-color: white;
+
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0 0px 1px transparentize(#000000, .88);
+
+            min-height: 50px;
+            max-height: 180px;
+
+            padding: 16px;
+            margin-bottom: 16px;
+
+            overflow-wrap: break-word;
+            white-space: normal;
+            overflow-y: auto;
+
+            text-align: left;
+
+            &.selected {
+                box-shadow: 0 0 6px $clicked-color;
+                opacity: 1;
+            }
+
+            .answer-confirmation_container {
+                display: flex;
+                justify-content: flex-end;
+                margin: 16px 0 10px 0;
+
+                .confirmation-button {
+                    margin-right: 12px;
+                    color: $clicked-color;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
