@@ -16,9 +16,7 @@
     "@types/classnames": "2.2.3",
     "@types/lodash": "^4.14.97",
     "@types/node": "8.0.44",
-    "@types/react": "^16.3.14",
-    "@types/webpack": "3.0.13",
-    "@types/webpack-env": "1.13.2",
+    "@types/react": "16.3.14",
     "awesome-typescript-loader": "^3.2.3",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
@@ -35,7 +33,7 @@
     "typescript": "^2.8.3",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.2",
+    "webpack-dev-server": "2.9.2",
     "webpack-notifier": "^1.5.0"
   },
   "dependencies": {
