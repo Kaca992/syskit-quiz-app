@@ -6,6 +6,7 @@ import { autobind } from 'core-decorators';
 import './quizComponent.scss';
 import { Header } from './components/header';
 import QuestionAnswer from './components/questionAnswer';
+import { ProgressBar } from 'components/quizComponent/components/progressBar';
 
 export interface IQuestion {
     id: number;
@@ -45,6 +46,7 @@ export default class QuizComponent extends React.Component<IQuizComponentProps, 
                 <Header questionText={question.questionText}
                         questionIndex={questionIndex}
                         totalQuestions={totalQuestions} />
+                <ProgressBar percentage={questionIndex / totalQuestions} />
                 <div className="question-answers-container">
                     {question.answers.map(answer => {
                         return <QuestionAnswer
