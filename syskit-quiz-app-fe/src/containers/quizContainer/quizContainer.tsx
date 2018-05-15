@@ -42,6 +42,7 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
         }
 
         return <QuizComponent
+            key={questionIndex}
             question={questions[questionIndex]}
             questionIndex={questionIndex}
             totalQuestions={questions.length}
@@ -64,7 +65,7 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
 
         // check if last question
         if (questionIndex === (questions.length - 1)) {
-            // return results
+            this.props.submitAnswers(newAnswers);
         }
 
         this.setState({

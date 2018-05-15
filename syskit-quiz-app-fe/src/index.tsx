@@ -5,6 +5,6 @@ import './style/index.scss';
 import QuizContainer from 'containers/quizContainer/quizContainer';
 
 ReactDOM.render(
-  <QuizContainer submitAnswers={() => null} />,
+  <QuizContainer submitAnswers={(answers) => console.log(JSON.stringify(answers))} />,
   document.getElementById('root'),
 );

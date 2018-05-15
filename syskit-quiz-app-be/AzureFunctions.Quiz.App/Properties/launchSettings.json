@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AzureFunctions.Quiz.App": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --cors *"
+    }
+  }
+}
