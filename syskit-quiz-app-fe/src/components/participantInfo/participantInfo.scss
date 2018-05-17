@@ -69,6 +69,20 @@
                 }
             }
         }
+
+        .course-container {
+            width: 100%;
+            display: flex;
+
+            .course-input {
+                width: 55%;
+                margin-right: 16px;
+            }
+
+            .enrollment-year-input {
+                width: calc(45% - 16px);
+            }
+        }
     }
 
     .start-quiz-button {

@@ -16,7 +16,7 @@
     "@types/classnames": "2.2.3",
     "@types/lodash": "^4.14.97",
     "@types/node": "8.0.44",
-    "@types/react": "16.3.14",
+    "@types/react": "16.0.38",
     "awesome-typescript-loader": "^3.2.3",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
@@ -44,7 +44,7 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "quick-react-ts": "^0.11.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react": "16.2",
+    "react-dom": "16.2"
   }
 }
