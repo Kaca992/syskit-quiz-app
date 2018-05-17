@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import './style/index.scss';
-import QuizContainer from 'containers/quizContainer/quizContainer';
+import Main from 'containers/main/main';
 
 ReactDOM.render(
-  <QuizContainer submitAnswers={(answers) => console.log(JSON.stringify(answers))} />,
+  <Main />,
   document.getElementById('root'),
 );

@@ -8,7 +8,7 @@ import QuizComponent from 'components/quizComponent/quizComponent';
 import _ = require('lodash');
 
 export interface IQuizContainerProps {
-    submitAnswers(answers: IParticipantAnswers[]): void;
+    onSubmitAnswers(answers: IParticipantAnswers[]): void;
 }
 
 export interface IQuizContainerState {
@@ -65,7 +65,7 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
 
         // check if last question
         if (questionIndex === (questions.length - 1)) {
-            this.props.submitAnswers(newAnswers);
+            this.props.onSubmitAnswers(newAnswers);
         }
 
         this.setState({
