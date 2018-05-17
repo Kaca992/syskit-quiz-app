@@ -28,21 +28,24 @@ export default class Main extends React.Component<IMainProps, IMainState> {
     }
 
     public render() {
-        switch(this.state.selectedPage) {
+        switch (this.state.selectedPage) {
             case SelectedPageEnum.InfoEntry:
-                return <ParticipantContainer />;
+                return <ParticipantContainer onStartQuizClicked={this._onStartQuiz} />;
             case SelectedPageEnum.Questions:
                 return <QuizContainer onSubmitAnswers={this._onSubmitAnswers} />;
         }
     }
 
-    private _onStartQuiz() {
+    @autobind
+    private _onStartQuiz(participantInfo: IParticipant) {
         this.setState({
+            participantInfo,
             selectedPage: SelectedPageEnum.Questions
         });
     }
 
     // submit answers, start loading while results being calculated
+    @autobind
     private _onSubmitAnswers(answers: IParticipantAnswers[]) {
         this.setState({
             participantAnswers: answers

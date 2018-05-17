@@ -43,7 +43,7 @@
                 color: $input-color !important;
                 @include font-size($input-font-size);
                 background-color: $participant-info-bg-color;
-                margin-bottom: 24px;
+                margin-bottom: 16px;
             }
 
             label {
@@ -85,7 +85,12 @@
         }
     }
 
-    .start-quiz-button {
+    .button-quiz {
+        width: 100% !important;
+        margin-top: 16px;
+        border-radius: 6px !important;
 
+        font-family: 'Roboto', sans-serif !important;
+        @include font-size(16);
     }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
-import { TextField } from 'quick-react-ts';
+import { TextField, Button } from 'quick-react-ts';
 import { IParticipant } from 'common/data';
 import { ParticipantInfoInput } from 'common/strings';
 
@@ -10,7 +10,8 @@ import './participantInfo.scss';
 
 export interface IParticipantInfoProps {
     participantInfo: IParticipant;
-    onParticipantInfoChanged(newInof: IParticipant);
+    onParticipantInfoChanged(newInof: IParticipant): void;
+    onStartQuizClicked(): void;
 }
 
 export default class ParticipantInfo extends React.PureComponent<IParticipantInfoProps> {
@@ -63,6 +64,11 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
                             />
                         </div>
                     </div>
+                    <Button
+                        className='button-primary button-quiz'
+                        onClick={this.props.onStartQuizClicked}>
+                        {ParticipantInfoInput.startQuiz}
+                    </Button>
                 </div>
             </div>
         );
