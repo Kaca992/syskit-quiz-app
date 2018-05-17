@@ -1,6 +1,17 @@
 @import 'src/style/_variables';
 @import 'src/style/_mixins';
 
+@mixin placeholder($prefix) {
+    [placeholder]::-#{$prefix}-placeholder {
+        opacity: 0.5;
+        transition: opacity 400ms ease-out;
+    }
+    [placeholder]:focus::-#{$prefix}-placeholder {
+        opacity: 0;
+        transition: opacity 400ms ease-out;
+    }
+}
+
 .participant-info-container {
     width: 100%;
     min-height: 100vh;
@@ -25,10 +36,36 @@
         margin-bottom: 8px;
 
         .text-field {
+            position: relative;
+
             input {
                 width: 100% !important;
+                color: $input-color !important;
                 background-color: $participant-info-bg-color;
                 margin-bottom: 24px;
+            }
+
+            label {
+                opacity: 0;
+                color: $input-label-color;
+                @include font-size($input-label-font-size);
+                @include transition(opacity .3s ease);
+            }
+
+            &.is-active {
+                label {
+                    opacity: 1;
+                }
+
+                @each $browser in webkit-input, moz, ms-input {
+                    @include placeholder($browser);
+                }
+            }
+
+            &.has-value {
+                label {
+                    opacity: 1;
+                }
             }
         }
     }

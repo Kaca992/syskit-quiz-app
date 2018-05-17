@@ -8,12 +8,16 @@ import { ParticipantInfoInput } from 'common/strings';
 
 import './participantInfo.scss';
 
-export interface IParticipantInfoProps extends IParticipant {
+export interface IParticipantInfoProps {
+    participantInfo: IParticipant;
     onParticipantInfoChanged(newInof: IParticipant);
 }
 
 export default class ParticipantInfo extends React.PureComponent<IParticipantInfoProps> {
     public render() {
+        const { name, email } = this.props.participantInfo;
+        const hasValueClassName = "has-value";
+
         return (
             <div className="participant-info-container">
                 <div className="logo-icon">
@@ -21,13 +25,19 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
                 </div>
                 <div className="input-container">
                     <TextField
+                        className={name ? hasValueClassName : null}
+                        label={ParticipantInfoInput.nameLabel}
                         placeholder={ParticipantInfoInput.nameLabel}
                         onChanged={this._onNameChanged}
+                        value={name}
                         underlined
                     />
                     <TextField
+                        className={email ? hasValueClassName : null}
+                        label={ParticipantInfoInput.emailLabel}
                         placeholder={ParticipantInfoInput.emailLabel}
                         onChanged={this._onEmailChanged}
+                        value={email}
                         underlined
                     />
                 </div>
@@ -37,13 +47,13 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
 
     @autobind
     private _onNameChanged(name: string) {
-        const {onParticipantInfoChanged, children, ...oldInfo} = this.props;
-        onParticipantInfoChanged({...oldInfo, name});
+        const {onParticipantInfoChanged, participantInfo} = this.props;
+        onParticipantInfoChanged({...participantInfo, name});
     }
 
     @autobind
     private _onEmailChanged(email: string) {
-        const {onParticipantInfoChanged, children, ...oldInfo} = this.props;
-        onParticipantInfoChanged({...oldInfo, email});
+        const {onParticipantInfoChanged, participantInfo} = this.props;
+        onParticipantInfoChanged({...participantInfo, email});
     }
 }

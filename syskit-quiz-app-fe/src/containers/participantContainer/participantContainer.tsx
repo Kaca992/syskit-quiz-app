@@ -18,12 +18,12 @@ export default class ParticipantContainer extends React.Component<IParticipantCo
     constructor(props: IParticipantContainerProps) {
         super(props);
         this.state = {
-            participantInfo: null
+            participantInfo: {}
         };
     }
 
     public render() {
-        return <ParticipantInfo onParticipantInfoChanged={this._onParticipantInfoChanged} />;
+        return <ParticipantInfo participantInfo={this.state.participantInfo} onParticipantInfoChanged={this._onParticipantInfoChanged} />;
     }
 
     // validate
