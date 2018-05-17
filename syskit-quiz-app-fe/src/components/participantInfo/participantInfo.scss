@@ -41,6 +41,7 @@
             input {
                 width: 100% !important;
                 color: $input-color !important;
+                @include font-size($input-font-size);
                 background-color: $participant-info-bg-color;
                 margin-bottom: 24px;
             }
