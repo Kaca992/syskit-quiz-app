@@ -17,6 +17,7 @@
       "es7",
       "dom"
     ],
+    "noEmitHelpers": true,
     // enables custom paths on import. IMPORTANT!: need to be defined in webpack alias also
     "baseUrl": ".",
     "paths": {

@@ -69,7 +69,6 @@
                     "\t\t);",
                 "\t}",
             "}",
-            "",
             ""
         ],
         "description": "React Stateless Functional Component snippet"

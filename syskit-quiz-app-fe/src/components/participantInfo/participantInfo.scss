@@ -1,0 +1,39 @@
+@import 'src/style/_variables';
+@import 'src/style/_mixins';
+
+.participant-info-container {
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $participant-info-bg-color;
+
+    padding: 32px;
+
+    .logo-icon {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    .input-container {
+        width: 100%;
+        margin-bottom: 8px;
+
+        .text-field {
+            input {
+                width: 100% !important;
+                background-color: $participant-info-bg-color;
+                margin-bottom: 24px;
+            }
+        }
+    }
+
+    .start-quiz-button {
+
+    }
+}
