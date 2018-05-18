@@ -11,7 +11,7 @@ namespace AzureFunctions.Quiz.App.Service
 {
     public class ParticipantService
     {
-        public async Task InsertNewTestResults(TestDTO test)
+        public async Task<ParticipantResultDTO> InsertNewTestResults(TestDTO test)
         {
             using (var dbContext = DbContextFactory.Instance.Context)
             {
@@ -38,6 +38,12 @@ namespace AzureFunctions.Quiz.App.Service
 
                 newParticipant.Result = Decimal.Round((decimal)numberOfCorrectAnswers / questionsIds.Count, 2);
                 await dbContext.SaveChangesAsync();
+
+                return new ParticipantResultDTO()
+                {
+                    CorrectAnswers = numberOfCorrectAnswers,
+                    NumberOfQuestions = questionsIds.Count
+                };
             }
         }
 

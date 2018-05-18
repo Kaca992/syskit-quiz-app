@@ -9,6 +9,7 @@ import _ = require('lodash');
 
 export interface IQuizContainerProps {
     onSubmitAnswers(answers: IParticipantAnswers[]): void;
+    onLoadError(error: any);
 }
 
 export interface IQuizContainerState {
@@ -32,6 +33,8 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
             this.setState({
                 questions
             });
+        }).catch(error => {
+            this.props.onLoadError(error);
         });
     }
 

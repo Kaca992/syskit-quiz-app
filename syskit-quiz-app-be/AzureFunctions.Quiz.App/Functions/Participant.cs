@@ -31,14 +31,13 @@ namespace AzureFunctions.Quiz.App.Functions
             try
             {
                 var newTestResult = await req.Content.ReadAsAsync<TestDTO>();
-                await participantService.InsertNewTestResults(newTestResult);
+                var result = await participantService.InsertNewTestResults(newTestResult);
+                return JsonHelpers.CreateResponse(result);
             }
             catch (Exception e)
             {
                 return req.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
-
-            return req.CreateResponse(HttpStatusCode.OK, "New Test Result Added");
         }
 
         /// <summary>

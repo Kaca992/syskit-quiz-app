@@ -26,3 +26,8 @@ export interface ITest {
     participant: IParticipant;
     answers: IParticipantAnswers[];
 }
+
+export interface IParticipantResult {
+    correctAnswers: number;
+    numberOfQuestions: number;
+}

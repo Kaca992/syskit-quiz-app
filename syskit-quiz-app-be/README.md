@@ -84,7 +84,7 @@ Input: {
     "answers": {"questionId": number, "answerId": number}
   }
 },
-Output: {}
+Output: { "correctAnswers": number; "numberOfQuestions": number; }
 ```
 
 * Get all participants
