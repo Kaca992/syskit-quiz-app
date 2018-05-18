@@ -8,6 +8,8 @@ import QuizContainer from 'containers/quizContainer/quizContainer';
 import { IParticipant, IParticipantAnswers, IParticipantResult } from 'common/data';
 import { addParticipant } from '../../service/participant.service';
 import ResultComponent from 'components/resultComponent/resultComponent';
+import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
+import { submitingResults } from 'common/strings';
 
 export interface IMainProps {
 
@@ -17,6 +19,7 @@ export interface IMainState {
     selectedPage: SelectedPageEnum;
     participantInfo: IParticipant;
     participantResult: IParticipantResult;
+    loadingText?: string;
 }
 
 export default class Main extends React.Component<IMainProps, IMainState> {
@@ -30,15 +33,16 @@ export default class Main extends React.Component<IMainProps, IMainState> {
     }
 
     public render() {
-        const { correctAnswers, numberOfQuestions } = this.state.participantResult;
-
         switch (this.state.selectedPage) {
             case SelectedPageEnum.InfoEntry:
                 return <ParticipantContainer onStartQuizClicked={this._onStartQuiz} />;
             case SelectedPageEnum.Questions:
                 return <QuizContainer onLoadError={this._onError} onSubmitAnswers={this._onSubmitAnswers} />;
             case SelectedPageEnum.Result:
+                const { correctAnswers, numberOfQuestions } = this.state.participantResult;
                 return <ResultComponent correctAnswers={correctAnswers} numberOfQuestions={numberOfQuestions} />;
+            case SelectedPageEnum.Loading:
+                return <LoadingComponent text={this.state.loadingText} />;
         }
     }
 
@@ -53,6 +57,11 @@ export default class Main extends React.Component<IMainProps, IMainState> {
     // submit answers, start loading while results being calculated
     @autobind
     private _onSubmitAnswers(answers: IParticipantAnswers[]) {
+        this.setState({
+            selectedPage: SelectedPageEnum.Loading,
+            loadingText: submitingResults
+        });
+
         addParticipant(this.state.participantInfo, answers).then(result => {
             this.setState({
                 selectedPage: SelectedPageEnum.Result,

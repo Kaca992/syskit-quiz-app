@@ -6,6 +6,8 @@ import { IQuestion, IParticipantAnswers } from 'common/data';
 import { getQuestions } from '../../service/questions.service';
 import QuizComponent from 'components/quizComponent/quizComponent';
 import _ = require('lodash');
+import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
+import { fetchingQuestions } from 'common/strings';
 
 export interface IQuizContainerProps {
     onSubmitAnswers(answers: IParticipantAnswers[]): void;
@@ -41,7 +43,7 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
     public render() {
         const { questions, questionIndex } = this.state;
         if (!questions || questions.length === 0) {
-            return <div>Loading...</div>;
+            return <LoadingComponent text={fetchingQuestions} />;
         }
 
         return <QuizComponent
@@ -69,6 +71,7 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
         // check if last question
         if (questionIndex === (questions.length - 1)) {
             this.props.onSubmitAnswers(newAnswers);
+            return;
         }
 
         this.setState({

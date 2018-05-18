@@ -8,3 +8,6 @@ export const ParticipantInfoInput = {
 
 export const fieldRequiredMessage = "Unesite vrijednost";
 export const emailInvalid = "Nije validan email";
+
+export const fetchingQuestions = "Dohvaćanje pitanja";
+export const submitingResults = "Dohvaćanje rezultata";
