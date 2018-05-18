@@ -18,12 +18,28 @@ exports.htmlLoader = {
     test: /\.html$/, use: 'html-loader'
 };
 
-// exports.urlLoader = {
-//     test: /\.png$/, use: 'url-loader?limit=10000'
-// };
+exports.urlLoader = {
+    test: /\.(png|jpg|gif)$/,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          limit: 8192
+        }
+      }
+    ]
+};
 
 exports.fileLoader = {
-   test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "file-loader?name=./assets/images/[name].[ext]"
+        test: /\.(jpg|png)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            publicPath: "/",
+            outputPath: "assets/"
+          },
+        },
 };
 
 //styles

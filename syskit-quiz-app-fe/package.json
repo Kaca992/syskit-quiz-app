@@ -8,8 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --debug --devtool cheap-module-source-map --output-pathinfo --history-api-fallback --hot --inline --progress --colors --port 3000 --open",
     "mobile-dev": "webpack-dev-server --debug --devtool cheap-module-source-map --output-pathinfo --history-api-fallback --hot --inline --progress --colors --port 3000 --open --host 192.168.1.19",
-    "build": "webpack --progress --colors",
-    "clean-modules": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command Remove-Item .\\node_modules -Force -Recurse"
+    "build": "npm clean-dist & webpack --progress --colors",
+    "clean-modules": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command Remove-Item .\\node_modules -Force -Recurse",
+    "clean-dist": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command Remove-Item .\\dist -Force -Recurse"
   },
   "license": "MIT",
   "devDependencies": {

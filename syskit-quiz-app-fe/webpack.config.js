@@ -19,7 +19,7 @@ module.exports = {
   },
   output: {
     path: outPath,
-    publicPath: '/',
+    publicPath: './',
     filename: 'bundle.js',
   },
   target: 'web',
@@ -38,6 +38,7 @@ module.exports = {
       webpackLoaders.awesomeTypeScript,
       // static assets
      webpackLoaders.htmlLoader,
+    //  webpackLoaders.urlLoader,
      webpackLoaders.fileLoader,
      //styles
      variables.isProduction ? webpackLoaders.sassOneFile : webpackLoaders.sass
@@ -63,6 +64,7 @@ module.exports = {
     new webpackPlugins.WebpackNotifierPlugin()
   ],
   devServer: {
+    publicPath: '/',
     contentBase: sourcePath,
     hot: true,
     stats: {

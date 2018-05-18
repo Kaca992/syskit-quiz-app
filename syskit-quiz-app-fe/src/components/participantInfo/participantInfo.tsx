@@ -7,6 +7,7 @@ import { IParticipant } from 'common/data';
 import { ParticipantInfoInput } from 'common/strings';
 
 import './participantInfo.scss';
+import logo from '../../assets/logo.png';
 
 export interface IParticipantInfoProps {
     participantInfo: IParticipant;
@@ -22,7 +23,7 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
         return (
             <div className="participant-info-container">
                 <div className="logo-icon">
-                    Logo
+                    <img src={logo} />
                 </div>
                 <div className="input-container">
                     <TextField
