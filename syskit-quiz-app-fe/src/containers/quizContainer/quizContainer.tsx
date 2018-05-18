@@ -10,13 +10,12 @@ import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
 import { fetchingQuestions } from 'common/strings';
 
 export interface IQuizContainerProps {
+    questions: IQuestion[];
     onSubmitAnswers(answers: IParticipantAnswers[]): void;
-    onLoadError(error: any);
 }
 
 export interface IQuizContainerState {
     questionIndex: number;
-    questions: IQuestion[];
     answers: IParticipantAnswers[];
 }
 
@@ -25,23 +24,13 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
         super(props);
         this.state = {
             questionIndex: 0,
-            questions: [],
             answers: []
         };
     }
 
-    public componentDidMount() {
-        return getQuestions().then(questions => {
-            this.setState({
-                questions
-            });
-        }).catch(error => {
-            this.props.onLoadError(error);
-        });
-    }
-
     public render() {
-        const { questions, questionIndex } = this.state;
+        const { questionIndex } = this.state;
+        const { questions } = this.props;
         if (!questions || questions.length === 0) {
             return <LoadingComponent text={fetchingQuestions} />;
         }
@@ -57,7 +46,8 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
 
     @autobind
     private _onAnswerSelected(idQuestion: number, idAnswer: number) {
-        const {questions, questionIndex, answers} = this.state;
+        const { questionIndex, answers} = this.state;
+        const { questions } = this.props;
 
         const newAnswers = _.cloneDeep(answers);
         const index = newAnswers.findIndex(x => x.questionId === idQuestion);

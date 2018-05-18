@@ -5,11 +5,12 @@ import { autobind } from 'core-decorators';
 import { SelectedPageEnum } from 'common/enum';
 import ParticipantContainer from 'containers/participantContainer/participantContainer';
 import QuizContainer from 'containers/quizContainer/quizContainer';
-import { IParticipant, IParticipantAnswers, IParticipantResult } from 'common/data';
+import { IParticipant, IParticipantAnswers, IParticipantResult, IQuestion } from 'common/data';
 import { addParticipant } from '../../service/participant.service';
 import ResultComponent from 'components/resultComponent/resultComponent';
 import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
 import { submitingResults } from 'common/strings';
+import { getQuestions } from '../../service/questions.service';
 
 export interface IMainProps {
 
@@ -17,6 +18,7 @@ export interface IMainProps {
 
 export interface IMainState {
     selectedPage: SelectedPageEnum;
+    questions: IQuestion[];
     participantInfo: IParticipant;
     participantResult: IParticipantResult;
     loadingText?: string;
@@ -27,9 +29,20 @@ export default class Main extends React.Component<IMainProps, IMainState> {
         super(props);
         this.state = {
             selectedPage: SelectedPageEnum.InfoEntry,
+            questions: [],
             participantInfo: null,
             participantResult: null
         };
+    }
+
+    public componentDidMount() {
+        return getQuestions().then(questions => {
+            this.setState({
+                questions
+            });
+        }).catch(error => {
+            this._onError(error);
+        });
     }
 
     public render() {
@@ -37,7 +50,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
             case SelectedPageEnum.InfoEntry:
                 return <ParticipantContainer onStartQuizClicked={this._onStartQuiz} />;
             case SelectedPageEnum.Questions:
-                return <QuizContainer onLoadError={this._onError} onSubmitAnswers={this._onSubmitAnswers} />;
+                return <QuizContainer questions={this.state.questions} onSubmitAnswers={this._onSubmitAnswers} />;
             case SelectedPageEnum.Result:
                 const { correctAnswers, numberOfQuestions } = this.state.participantResult;
                 return <ResultComponent correctAnswers={correctAnswers} numberOfQuestions={numberOfQuestions} />;
