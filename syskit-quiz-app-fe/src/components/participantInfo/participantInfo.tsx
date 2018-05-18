@@ -9,8 +9,16 @@ import { ParticipantInfoInput } from 'common/strings';
 import './participantInfo.scss';
 import logo from '../../assets/logo.png';
 
+export interface IParticipantValidation {
+    nameError?: string;
+    emailError?: string;
+    courseError?: string;
+    yearError?: string;
+}
+
 export interface IParticipantInfoProps {
     participantInfo: IParticipant;
+    validation: IParticipantValidation;
     onParticipantInfoChanged(newInof: IParticipant): void;
     onStartQuizClicked(): void;
 }
@@ -18,6 +26,7 @@ export interface IParticipantInfoProps {
 export default class ParticipantInfo extends React.PureComponent<IParticipantInfoProps> {
     public render() {
         const { name, email, course, enrollmentYear } = this.props.participantInfo;
+        const { nameError, emailError, courseError, yearError } = this.props.validation;
         const hasValueClassName = "has-value";
 
         return (
@@ -33,6 +42,7 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
                         onChanged={this._onNameChanged}
                         value={name}
                         underlined
+                        errorMessage={nameError}
                     />
                     <TextField
                         className={email ? hasValueClassName : null}
@@ -41,6 +51,7 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
                         onChanged={this._onEmailChanged}
                         value={email}
                         underlined
+                        errorMessage={emailError}
                     />
                     <div className="course-container">
                         <div className="course-input">
@@ -51,6 +62,7 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
                                 onChanged={this._onCourseChanged}
                                 value={course}
                                 underlined
+                                errorMessage={courseError}
                             />
                         </div>
                         <div className="enrollment-year-input">
@@ -62,6 +74,7 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
                                 value={enrollmentYear}
                                 underlined
                                 type="number"
+                                errorMessage={yearError}
                             />
                         </div>
                     </div>

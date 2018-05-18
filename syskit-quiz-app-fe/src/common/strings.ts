@@ -5,3 +5,6 @@ export const ParticipantInfoInput = {
     enrollmentYearLabel: "Godina studija",
     startQuiz: "Započni kviz"
 };
+
+export const fieldRequiredMessage = "Unesite vrijednost";
+export const emailInvalid = "Nije validan email";
