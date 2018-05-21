@@ -7,7 +7,6 @@ import { IParticipant } from 'common/data';
 import { ParticipantInfoInput } from 'common/strings';
 
 import './participantInfo.scss';
-import logo from '../../assets/logo.png';
 
 export interface IParticipantValidation {
     nameError?: string;
@@ -31,9 +30,7 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
 
         return (
             <div className="participant-info-container">
-                <div className="logo-icon">
-                    <img src={logo} />
-                </div>
+                <div className="logo-icon" />
                 <div className="input-container">
                     <TextField
                         className={name ? hasValueClassName : null}

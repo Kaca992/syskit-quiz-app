@@ -34,12 +34,12 @@ module.exports = {
      }
   },
   module: {
-    loaders: [
+    rules: [
       webpackLoaders.awesomeTypeScript,
       // static assets
      webpackLoaders.htmlLoader,
-    //  webpackLoaders.urlLoader,
-     webpackLoaders.fileLoader,
+     webpackLoaders.urlLoader,
+    //  webpackLoaders.fileLoader,
      //styles
      variables.isProduction ? webpackLoaders.sassOneFile : webpackLoaders.sass
     ],

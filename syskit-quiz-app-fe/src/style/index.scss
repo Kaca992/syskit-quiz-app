@@ -17,3 +17,11 @@ body {
 
     font-family: 'Roboto', sans-serif;
 }
+
+.logo-icon {
+    @include bgimage("logo");
+        width: 195px;
+        height: 73px;
+        margin: auto;
+        background-size: cover;
+}
