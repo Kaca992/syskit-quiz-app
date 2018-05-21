@@ -25,3 +25,13 @@ body {
         margin: auto;
         background-size: cover;
 }
+
+.rightWing-icon {
+    @include bgimage("rightWing");
+    background-size: 100% 100%;
+}
+
+.leftWing-icon {
+    @include bgimage("leftWing");
+    background-size: 100% 100%;
+}
