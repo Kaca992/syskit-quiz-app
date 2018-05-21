@@ -1,28 +1,41 @@
 @import 'src/style/_variables';
 @import 'src/style/_mixins';
 
-.result-container {
-    @include keyframes(slide-out-right) {
-        0% { transform: rotate(-30deg); }
-        100% { transform: translate(500px, -500px) rotate(-30deg); }
-    }
+@include keyframes(slide-out-right) {
+    0% { transform: rotate(-30deg); }
+    100% { transform: translate(500px, -500px) rotate(-30deg); }
+}
 
-    @include keyframes(slide-out-left) {
-        0% { transform: rotate(-30deg); }
-        100% { transform: translate(-500px, 500px) rotate(-30deg); }
-    }
+@include keyframes(slide-out-left) {
+    0% { transform: rotate(-30deg); }
+    100% { transform: translate(-500px, 500px) rotate(-30deg); }
+}
 
-    @include keyframes(fade-in-box) {
-        0% {
-             opacity: 0;
-             @include font-size(10);
-        }
-        100% {
-            opacity: 1;
-            @include font-size(46);
-        }
+@include keyframes(result-fade-in) {
+    0% {
+         opacity: 0;
+         @include font-size(10);
     }
+    100% {
+        opacity: 1;
+        @include font-size(46);
+    }
+}
 
+@include keyframes(congratulations-fade-in) {
+    0% {
+         transform: translateY(15px);
+         opacity: 0;
+         @include font-size(10);
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+        @include font-size(26);
+    }
+}
+
+.final-screen-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,14 +77,31 @@
             @include animation('slide-out-left 4s forwards');
         }
     
-        .result {
+        .result-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
             position: absolute;
-            opacity: 0;
+            .result {
+                opacity: 0;
+    
+                color: $result-color;
+                font-weight: bolder;
+                text-shadow: 2px 2px 5px $result-shadow-color;
+    
+                @include animation('result-fade-in 2s forwards');
+            }
 
-            color: $result-color;
-            text-shadow: 2px 2px 5px $result-shadow-color;
+            .congratulations {
+                opacity: 0;
 
-            @include animation('fade-in-box 2s forwards');
+                color: $input-color;
+                text-shadow: 2px 2px 5px $result-shadow-color;
+
+                @include animation('congratulations-fade-in 2s forwards');
+            }
         }
     }
 }
