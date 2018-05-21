@@ -36,6 +36,7 @@ export default class ResultComponent extends React.PureComponent<IResultComponen
                     </div>
                     <div className="rightWing-icon" />
                 </div>
+                <div className="logoResult-icon" />
             </div>
         );
     }

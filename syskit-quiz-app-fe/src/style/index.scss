@@ -35,3 +35,8 @@ body {
     @include bgimage("leftWing");
     background-size: 100% 100%;
 }
+
+.logoResult-icon {
+    @include bgimage("logoResult");
+    background-size: 100% 100%;
+}

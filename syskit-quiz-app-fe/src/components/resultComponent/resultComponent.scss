@@ -1,65 +1,10 @@
 @import 'src/style/_variables';
 @import 'src/style/_mixins';
-
-@include keyframes(slide-out-right) {
-    0% { transform: rotate(-30deg); }
-    100% { transform: translate(500px, -500px) rotate(-30deg); }
-}
-
-@include keyframes(slide-out-left) {
-    0% { transform: rotate(-30deg); }
-    100% { transform: translate(-500px, 500px) rotate(-30deg); }
-}
-
-@include keyframes(result-fade-in) {
-    0% {
-         opacity: 0;
-         @include font-size(10);
-    }
-    100% {
-        opacity: 1;
-        @include font-size(46);
-    }
-}
-
-@include keyframes(congratulations-fade-in) {
-    0% {
-         transform: translateY(15px);
-         opacity: 0;
-         @include font-size(10);
-    }
-    100% {
-        transform: translateY(0px);
-        opacity: 1;
-        @include font-size(26);
-    }
-}
-
-@include keyframes(message-show) {
-    0% {
-         opacity: 0;
-         border-bottom-color: $result-color;
-    }
-    40% {
-        border-bottom-color: $result-color;
-        border-right-color: $result-color;
-    }
-    80% {
-        border-bottom-color: $result-color;
-        border-right-color: $result-color;
-        border-top-color: $result-color;
-    }
-    100% {
-        opacity: 1;
-        border-bottom-color: $result-color;
-        border-right-color: $result-color;
-        border-top-color: $result-color;
-        border-left-color: $result-color;
-    }
-}
+@import './_resultComponent_animations';
 
 .final-screen-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -145,5 +90,19 @@
                 @include animation('message-show 10s forwards');
             }
         }
+    }
+
+    .logoResult-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        margin: 15px;
+
+        height: 36px;
+        width: 90px;
+
+        opacity: 0;
+        @include animation('logo-fade-in 2s forwards');
     }
 }

@@ -1,0 +1,68 @@
+@import 'src/style/_variables';
+@import 'src/style/_mixins';
+
+@include keyframes(slide-out-right) {
+    0% { transform: rotate(-30deg); }
+    100% { transform: translate(500px, -500px) rotate(-30deg); }
+}
+
+@include keyframes(slide-out-left) {
+    0% { transform: rotate(-30deg); }
+    100% { transform: translate(-500px, 500px) rotate(-30deg); }
+}
+
+@include keyframes(result-fade-in) {
+    0% {
+         opacity: 0;
+         @include font-size(10);
+    }
+    100% {
+        opacity: 1;
+        @include font-size(46);
+    }
+}
+
+@include keyframes(congratulations-fade-in) {
+    0% {
+         transform: translateY(15px);
+         opacity: 0;
+         @include font-size(10);
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+        @include font-size(26);
+    }
+}
+
+@include keyframes(message-show) {
+    0% {
+         opacity: 0;
+         border-bottom-color: $result-color;
+    }
+    40% {
+        border-bottom-color: $result-color;
+        border-right-color: $result-color;
+    }
+    80% {
+        border-bottom-color: $result-color;
+        border-right-color: $result-color;
+        border-top-color: $result-color;
+    }
+    100% {
+        opacity: 1;
+        border-bottom-color: $result-color;
+        border-right-color: $result-color;
+        border-top-color: $result-color;
+        border-left-color: $result-color;
+    }
+}
+
+@include keyframes(logo-fade-in) {
+    0% {
+         opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
