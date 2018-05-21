@@ -63,8 +63,9 @@ body {
 
         position: absolute;
 
+        $animationTime: 3 + random(3);
         @if $i % 2 == 0 {
-            top: $i * 1.6%;
+            top: $i * 1.3%;
             right: random($limit: 80)* 1%;
         } @else {
             bottom: $i * 1.6%;
@@ -72,6 +73,6 @@ body {
         }
 
         margin: 14px;
-        @include animation('twinkle 2s linear infinite');
+        @include animation('twinkle #{$animationTime}s linear infinite');
     } 
 }
