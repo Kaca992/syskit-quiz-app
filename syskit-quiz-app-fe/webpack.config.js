@@ -31,17 +31,17 @@ module.exports = {
       'common': Path.resolve(__dirname, 'src/common'),
       'components': Path.resolve(__dirname, 'src/components'),
       'containers': Path.resolve(__dirname, 'src/containers')
-     }
+    }
   },
   module: {
     rules: [
       webpackLoaders.awesomeTypeScript,
       // static assets
-     webpackLoaders.htmlLoader,
-     webpackLoaders.urlLoader,
-    //  webpackLoaders.fileLoader,
-     //styles
-     variables.isProduction ? webpackLoaders.sassOneFile : webpackLoaders.sass
+      webpackLoaders.htmlLoader,
+      webpackLoaders.urlLoader,
+      //  webpackLoaders.fileLoader,
+      //styles
+      variables.isProduction ? webpackLoaders.sassOneFile : webpackLoaders.sass
     ],
   },
   plugins: [
@@ -61,7 +61,9 @@ module.exports = {
     new webpackPlugins.HtmlWebpackPlugin({
       template: 'index.html'
     }),
-    new webpackPlugins.WebpackNotifierPlugin()
+    new webpackPlugins.WebpackNotifierPlugin(),
+    new webpackPlugins.UglifyJSPlugin(),
+    new webpackPlugins.CompressionPlugin()
   ],
   devServer: {
     publicPath: '/',

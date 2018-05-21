@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import { IQuestion, IParticipantAnswers } from 'common/data';
 import { getQuestions } from '../../service/questions.service';
 import QuizComponent from 'components/quizComponent/quizComponent';
-import _ = require('lodash');
+import cloneDeep = require('lodash/cloneDeep');
 import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
 import { fetchingQuestions } from 'common/strings';
 
@@ -46,14 +46,14 @@ export default class QuizContainer extends React.Component<IQuizContainerProps, 
 
     @autobind
     private _onAnswerSelected(idQuestion: number, idAnswer: number) {
-        const { questionIndex, answers} = this.state;
+        const { questionIndex, answers } = this.state;
         const { questions } = this.props;
 
-        const newAnswers = _.cloneDeep(answers);
+        const newAnswers = cloneDeep(answers);
         const index = newAnswers.findIndex(x => x.questionId === idQuestion);
 
         if (index === -1) {
-            newAnswers.push({questionId: idQuestion, answerId: idAnswer});
+            newAnswers.push({ questionId: idQuestion, answerId: idAnswer });
         } else {
             newAnswers[index].answerId = idAnswer;
         }
