@@ -64,6 +64,12 @@
                     opacity: 1;
                 }
             }
+
+            &.is-invalid {
+                input {
+                    border-color: red !important;
+                }
+            }
         }
 
         .course-container {

@@ -27,51 +27,60 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
         const { name, email, course, enrollmentYear } = this.props.participantInfo;
         const { nameError, emailError, courseError, yearError } = this.props.validation;
         const hasValueClassName = "has-value";
+        const isInvalidClassName = "is-invalid";
 
         return (
             <div className="participant-info-container">
                 <div className="logo-icon" />
                 <div className="input-container">
                     <TextField
-                        className={name ? hasValueClassName : null}
+                        className={classNames({
+                            [hasValueClassName]: Boolean(name),
+                            [isInvalidClassName]: Boolean(nameError)
+                        })}
                         label={ParticipantInfoInput.nameLabel}
                         placeholder={ParticipantInfoInput.nameLabel}
                         onChanged={this._onNameChanged}
                         value={name}
                         underlined
-                        errorMessage={nameError}
                     />
                     <TextField
-                        className={email ? hasValueClassName : null}
+                        className={classNames({
+                            [hasValueClassName]: Boolean(email),
+                            [isInvalidClassName]: Boolean(emailError)
+                        })}
                         label={ParticipantInfoInput.emailLabel}
                         placeholder={ParticipantInfoInput.emailLabel}
                         onChanged={this._onEmailChanged}
                         value={email}
                         underlined
-                        errorMessage={emailError}
                     />
                     <div className="course-container">
                         <div className="course-input">
                             <TextField
-                                className={course ? hasValueClassName : null}
+                                className={classNames({
+                                    [hasValueClassName]: Boolean(course),
+                                    [isInvalidClassName]: Boolean(courseError)
+                                })}
                                 label={ParticipantInfoInput.courseLabel}
                                 placeholder={ParticipantInfoInput.courseLabel}
                                 onChanged={this._onCourseChanged}
                                 value={course}
                                 underlined
-                                errorMessage={courseError}
                             />
                         </div>
                         <div className="enrollment-year-input">
                             <TextField
-                                className={enrollmentYear ? hasValueClassName : null}
+                                className={classNames({
+                                    [hasValueClassName]: Boolean(enrollmentYear),
+                                    [isInvalidClassName]: Boolean(yearError)
+                                })}
                                 label={ParticipantInfoInput.enrollmentYearLabel}
                                 placeholder={ParticipantInfoInput.enrollmentYearLabel}
                                 onChanged={this._onEnrollYearChanged}
                                 value={enrollmentYear}
                                 underlined
                                 type="number"
-                                errorMessage={yearError}
                             />
                         </div>
                     </div>
