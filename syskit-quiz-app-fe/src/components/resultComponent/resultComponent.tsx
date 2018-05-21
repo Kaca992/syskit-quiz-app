@@ -5,6 +5,7 @@ import { autobind } from 'core-decorators';
 import { prizeTreshold } from '../../assets/config.json';
 
 import './resultComponent.scss';
+import * as _ from 'lodash';
 
 export interface IResultComponentProps {
     correctAnswers: number;
@@ -19,6 +20,7 @@ export default class ResultComponent extends React.PureComponent<IResultComponen
 
         return (
             <div className="final-screen-container">
+                {didWinPrize && this._renderStars()}
                 <div className="elements-container">
                     <div className="leftWing-icon" />
                     <div className="result-container">
@@ -39,5 +41,15 @@ export default class ResultComponent extends React.PureComponent<IResultComponen
                 <div className="logoResult-icon" />
             </div>
         );
+    }
+
+    private _renderStars() {
+        return <div className="stars-container">
+            {
+                _.times(15, i => {
+                    return <div className={`star-icon-${i}`} />;
+                })
+            }
+        </div>;
     }
 }

@@ -105,4 +105,10 @@
         opacity: 0;
         @include animation('logo-fade-in 2s forwards');
     }
+
+    .stars-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
 }

@@ -40,3 +40,38 @@ body {
     @include bgimage("logoResult");
     background-size: 100% 100%;
 }
+
+@include keyframes(twinkle) {
+    0% {
+         opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@for $i from 0 through 14 {
+    .star-icon-#{$i} { 
+        width: 10px + $i * 1.6px;
+        height: 10px + $i * 1.6px;
+
+        @include bgimage("star");
+        background-size: 100% 100%;
+
+        position: absolute;
+
+        @if $i % 2 == 0 {
+            top: $i * 1.6%;
+            right: random($limit: 80)* 1%;
+        } @else {
+            bottom: $i * 1.6%;
+            left: random($limit: 80)* 1%;
+        }
+
+        margin: 14px;
+        @include animation('twinkle 2s linear infinite');
+    } 
+}
