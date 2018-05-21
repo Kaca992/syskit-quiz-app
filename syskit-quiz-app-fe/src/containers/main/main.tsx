@@ -28,10 +28,10 @@ export default class Main extends React.Component<IMainProps, IMainState> {
     constructor(props: IMainProps) {
         super(props);
         this.state = {
-            selectedPage: SelectedPageEnum.Result,
+            selectedPage: SelectedPageEnum.InfoEntry,
             questions: [],
             participantInfo: null,
-            participantResult: {numberOfQuestions: 5, correctAnswers: 10}
+            participantResult: null
         };
     }
 
@@ -75,14 +75,14 @@ export default class Main extends React.Component<IMainProps, IMainState> {
             loadingText: submitingResults
         });
 
-        // addParticipant(this.state.participantInfo, answers).then(result => {
-        //     this.setState({
-        //         selectedPage: SelectedPageEnum.Result,
-        //         participantResult: result
-        //     });
-        // }).catch(error => {
-        //     this._onError(error);
-        // });
+        addParticipant(this.state.participantInfo, answers).then(result => {
+            this.setState({
+                selectedPage: SelectedPageEnum.Result,
+                participantResult: result
+            });
+        }).catch(error => {
+            this._onError(error);
+        });
 
         this.setState({
                     selectedPage: SelectedPageEnum.Result,

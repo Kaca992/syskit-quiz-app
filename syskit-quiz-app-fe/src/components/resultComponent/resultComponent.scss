@@ -35,6 +35,29 @@
     }
 }
 
+@include keyframes(message-show) {
+    0% {
+         opacity: 0;
+         border-bottom-color: $result-color;
+    }
+    40% {
+        border-bottom-color: $result-color;
+        border-right-color: $result-color;
+    }
+    80% {
+        border-bottom-color: $result-color;
+        border-right-color: $result-color;
+        border-top-color: $result-color;
+    }
+    100% {
+        opacity: 1;
+        border-bottom-color: $result-color;
+        border-right-color: $result-color;
+        border-top-color: $result-color;
+        border-left-color: $result-color;
+    }
+}
+
 .final-screen-container {
     display: flex;
     justify-content: center;
@@ -101,6 +124,25 @@
                 text-shadow: 2px 2px 5px $result-shadow-color;
 
                 @include animation('congratulations-fade-in 2s forwards');
+            }
+
+            .message-container {
+                opacity: 0;
+
+                margin-top: 20px;
+                padding: 24px;
+                overflow-wrap: break-word;
+
+                width: 80%;
+
+                border: 2px solid transparent;
+                box-shadow: 0 0px 1px $result-shadow-color;
+
+                text-align: center;
+                color: $input-color;
+                @include font-size(26);
+
+                @include animation('message-show 10s forwards');
             }
         }
     }

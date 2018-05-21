@@ -53,3 +53,12 @@ exports.sass = {
   test: /\.scss$/,
   loader: 'style-loader!css-loader!sass-loader'
 };
+
+exports.jsonLoader = {
+  test: /\.json$/,
+  use: [
+    {
+      loader: 'json-loader'
+    }
+  ]
+};

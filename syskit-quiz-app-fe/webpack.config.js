@@ -24,7 +24,7 @@ module.exports = {
   },
   target: 'web',
   resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
+    extensions: ['.js', '.ts', '.tsx', '.json'],
     alias: {
       // CUSTOM PACKAGES:
       // enables custom paths on import. IMPORTANT!: need to be defined in typescript path also + baseUrl
@@ -39,6 +39,7 @@ module.exports = {
       // static assets
       webpackLoaders.htmlLoader,
       webpackLoaders.urlLoader,
+      webpackLoaders.jsonLoader,
       //  webpackLoaders.fileLoader,
       //styles
       variables.isProduction ? webpackLoaders.sassOneFile : webpackLoaders.sass
