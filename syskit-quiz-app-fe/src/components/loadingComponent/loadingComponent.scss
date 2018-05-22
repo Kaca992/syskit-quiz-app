@@ -1,3 +1,6 @@
+@import 'src/style/_variables';
+@import 'src/style/_mixins';
+
 .loading-container {
     width: 100%;
     min-height: 100vh;
@@ -9,4 +12,9 @@
     align-items: center;
 
     padding: 2%;
+    background-color: $header-bg-color;
+
+    .spinner-label {
+        color: $header-color;
+    }
 }
