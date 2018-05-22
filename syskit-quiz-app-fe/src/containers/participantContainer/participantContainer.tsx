@@ -63,6 +63,6 @@ export default class ParticipantContainer extends React.Component<IParticipantCo
             validation
         });
 
-        return !validation.nameError && !validation.emailError && !validation.yearError && !validation.courseError && validation.consentError;
+        return !validation.nameError && !validation.emailError && !validation.yearError && !validation.courseError && !validation.consentError;
     }
 }
