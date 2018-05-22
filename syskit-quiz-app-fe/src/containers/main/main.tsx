@@ -11,6 +11,7 @@ import ResultComponent from 'components/resultComponent/resultComponent';
 import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
 import { submitingResults } from 'common/strings';
 import { getQuestions } from '../../service/questions.service';
+import { ErrorComponent } from 'components/errorComponent/errorComponent';
 
 export interface IMainProps {
 
@@ -22,6 +23,7 @@ export interface IMainState {
     participantInfo: IParticipant;
     participantResult: IParticipantResult;
     loadingText?: string;
+    exceptionMessage?: string;
 }
 
 export default class Main extends React.Component<IMainProps, IMainState> {
@@ -56,6 +58,8 @@ export default class Main extends React.Component<IMainProps, IMainState> {
                 return <ResultComponent correctAnswers={correctAnswers} numberOfQuestions={numberOfQuestions} />;
             case SelectedPageEnum.Loading:
                 return <LoadingComponent text={this.state.loadingText} />;
+            case SelectedPageEnum.Error:
+                return <ErrorComponent exceptionMessage={this.state.exceptionMessage} />;
         }
     }
 
@@ -83,17 +87,13 @@ export default class Main extends React.Component<IMainProps, IMainState> {
         }).catch(error => {
             this._onError(error);
         });
-
-        this.setState({
-                    selectedPage: SelectedPageEnum.Result,
-                    participantResult: {correctAnswers: 5, numberOfQuestions: 10}
-                });
     }
 
     @autobind
     private _onError(error: any) {
         this.setState({
-            selectedPage: SelectedPageEnum.Error
+            selectedPage: SelectedPageEnum.Error,
+            exceptionMessage: error && error.body && error.body.Message
         });
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AzureFunctions.Quiz.App.Exceptions;
 
 namespace AzureFunctions.Quiz.App.Service
 {
@@ -15,10 +16,16 @@ namespace AzureFunctions.Quiz.App.Service
         {
             using (var dbContext = DbContextFactory.Instance.Context)
             {
+                var participantEmail = test.Participant.Email.Trim();
+                if (dbContext.Participants.FirstOrDefault(x => x.Email.Equals(participantEmail, StringComparison.OrdinalIgnoreCase)) != null)
+                {
+                    throw new ParticipantAlreadyPlayedException();
+                }
+
                 int numberOfCorrectAnswers = 0;
                 var newParticipant = dbContext.Participants.Add(new Participant() {
                     Name = test.Participant.Name,
-                    Email = test.Participant.Email,
+                    Email = participantEmail,
                     Course = test.Participant.Course,
                     EnrollmentYear = test.Participant.EnrollmentYear
                 });

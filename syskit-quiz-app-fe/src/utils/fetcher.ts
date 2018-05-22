@@ -28,8 +28,12 @@ export function fetcher(url: string, customOptions: ICustomFetchOptions, init?: 
 
                 return Promise.resolve();
             } else {
-                const error = new Error(response.statusText);
-                throw error;
+                let payload = { status: response.status, body: null };
+                return response.json().then(errorResponse => {
+                    payload = { ...payload, body: errorResponse };
+                }).then(resp => {
+                    throw payload;
+                }).catch(err => { throw payload; });
             }
         });
 }

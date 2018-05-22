@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AzureFunctions.Quiz.App.DTO;
+using AzureFunctions.Quiz.App.Exceptions;
 using AzureFunctions.Quiz.App.Service;
 using AzureFunctions.Quiz.App.Utils;
 using AzureFunctions.Quiz.Model;
@@ -34,9 +35,14 @@ namespace AzureFunctions.Quiz.App.Functions
                 var result = await participantService.InsertNewTestResults(newTestResult);
                 return JsonHelpers.CreateResponse(result);
             }
+            catch (ParticipantAlreadyPlayedException pe)
+            {
+                return JsonHelpers.CreateResponse(pe, HttpStatusCode.BadRequest);
+            }
             catch (Exception e)
             {
-                return req.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                log.Error(e.Message);
+                return JsonHelpers.CreateResponse(e, HttpStatusCode.InternalServerError);
             }
         }
 
