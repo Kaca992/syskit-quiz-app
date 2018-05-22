@@ -57,11 +57,12 @@ export default class ParticipantContainer extends React.Component<IParticipantCo
         validation.emailError = emailFormValidation(participantInfo.email);
         validation.courseError = emptyAndNonWhitespaceInput(participantInfo.course);
         validation.yearError = emptyAndNonWhitespaceInput(participantInfo.enrollmentYear);
+        validation.consentError = !participantInfo.isConsentGiven;
 
         this.setState({
             validation
         });
 
-        return !validation.nameError && !validation.emailError && !validation.yearError && !validation.courseError;
+        return !validation.nameError && !validation.emailError && !validation.yearError && !validation.courseError && validation.consentError;
     }
 }

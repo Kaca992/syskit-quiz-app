@@ -96,3 +96,39 @@
         @include font-size(16);
     }
 }
+
+.consent-checkbox {
+    height: 40px;
+
+    .label {
+        font-size: 9px;
+        color: #DADADB;
+        white-space: normal;        
+    }
+}
+
+.checkbox .checkbox-label::before {
+    border: 2px solid #DADADB;    
+}
+
+.consent-checkbox-error .checkbox-label::before {
+    border: 2px solid red;
+}
+
+.icon-checkmark:before {
+    content: ''
+}
+
+.icon-checkmark:after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }

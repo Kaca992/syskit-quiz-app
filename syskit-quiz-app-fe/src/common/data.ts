@@ -15,6 +15,7 @@ export interface IParticipant {
     course?: string;
     enrollmentYear?: string;
     result?: number;
+    isConsentGiven?: boolean;
 }
 
 export interface IParticipantAnswers {

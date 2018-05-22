@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
-import { TextField, Button } from 'quick-react-ts';
+import { TextField, Button, Checkbox } from 'quick-react-ts';
 import { IParticipant } from 'common/data';
 import { ParticipantInfoInput } from 'common/strings';
 
@@ -13,6 +13,7 @@ export interface IParticipantValidation {
     emailError?: string;
     courseError?: string;
     yearError?: string;
+    consentError?: boolean;
 }
 
 export interface IParticipantInfoProps {
@@ -24,8 +25,8 @@ export interface IParticipantInfoProps {
 
 export default class ParticipantInfo extends React.PureComponent<IParticipantInfoProps> {
     public render() {
-        const { name, email, course, enrollmentYear } = this.props.participantInfo;
-        const { nameError, emailError, courseError, yearError } = this.props.validation;
+        const { name, email, course, enrollmentYear, isConsentGiven } = this.props.participantInfo;
+        const { nameError, emailError, courseError, yearError, consentError } = this.props.validation;
         const hasValueClassName = "has-value";
         const isInvalidClassName = "is-invalid";
 
@@ -84,6 +85,15 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
                             />
                         </div>
                     </div>
+                    <Checkbox
+                        label="Pristajem da me SysKit d.o.o. obaviještava o studentskim aktivnostima"
+                        checked={isConsentGiven}
+                        onChange={this._onConsentGivenChanged}
+                        className={classNames({
+                            "consent-checkbox": true,
+                            "consent-checkbox-error": consentError
+                        })}
+                    />
                     <Button
                         className='button-primary button-quiz'
                         onClick={this.props.onStartQuizClicked}>
@@ -116,5 +126,11 @@ export default class ParticipantInfo extends React.PureComponent<IParticipantInf
     private _onEnrollYearChanged(enrollmentYear: string) {
         const { onParticipantInfoChanged, participantInfo } = this.props;
         onParticipantInfoChanged({ ...participantInfo, enrollmentYear });
+    }
+
+    @autobind
+    private _onConsentGivenChanged(ev?: React.FormEvent<HTMLElement>, itemId?: string, checked?: boolean) {
+        const { onParticipantInfoChanged, participantInfo } = this.props;
+        onParticipantInfoChanged({ ...participantInfo, isConsentGiven: checked });
     }
 }
