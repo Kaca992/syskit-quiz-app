@@ -14,6 +14,7 @@ namespace AzureFunctions.Quiz.App.DTO
 
     public class ParticipantInfoDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Course { get; set; }

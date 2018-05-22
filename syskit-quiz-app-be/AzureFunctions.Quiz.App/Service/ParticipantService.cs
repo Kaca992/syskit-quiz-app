@@ -58,8 +58,9 @@ namespace AzureFunctions.Quiz.App.Service
         {
             using (var dbContext = DbContextFactory.Instance.Context)
             {
-                return dbContext.Participants.OrderByDescending(x => x.Result).ThenBy(x => x.Name).Select(x => new ParticipantInfoDTO()
+                return dbContext.Participants.OrderByDescending(x => x.Id).Select(x => new ParticipantInfoDTO()
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     Email = x.Email,
                     Course = x.Course,
