@@ -33,7 +33,7 @@ namespace AzureFunctions.Quiz.App.Utils
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress(MailSettings.FromMail, MailSettings.FromName),
-                Subject = "Summer Internship",
+                Subject = "SysKit Summer Internship 2018",
                 HtmlContent = insertNameToTemplate(name)
             };
             msg.AddTo(new EmailAddress(mail));
