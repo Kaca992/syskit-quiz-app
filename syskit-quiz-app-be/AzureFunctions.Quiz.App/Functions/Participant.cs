@@ -24,7 +24,7 @@ namespace AzureFunctions.Quiz.App.Functions
         /// <param name="log"></param>
         /// <returns></returns>
         [FunctionName("AddParticipant")]
-        public static async Task<HttpResponseMessage> AddParticipant([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "participant")]HttpRequestMessage req, TraceWriter log)
+        public static async Task<HttpResponseMessage> AddParticipant([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "participant")]HttpRequestMessage req, TraceWriter log, ExecutionContext context)
         {
             log.Info("C# HTTP Add Participant trigger function processed a request.");
             var participantService = new ParticipantService();
@@ -38,7 +38,7 @@ namespace AzureFunctions.Quiz.App.Functions
                 {
                     //if (result.CorrectAnswers >= Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["CorrectAnswersForMail"]))
                     {
-                        var mailHelper = new MailHelper(log);
+                        var mailHelper = new MailHelper(log, context.FunctionDirectory);
                         mailHelper.SendMail(newTestResult.Participant.Email.Trim(), newTestResult.Participant.Name);
                     }
                 }

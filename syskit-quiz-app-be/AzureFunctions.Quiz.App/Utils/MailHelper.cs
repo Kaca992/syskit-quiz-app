@@ -20,11 +20,11 @@ namespace AzureFunctions.Quiz.App.Utils
         private string _apiKey = System.Configuration.ConfigurationManager.AppSettings["SendGridAPI"];
         private string _rawEmailText;
 
-        public MailHelper(TraceWriter log)
+        public MailHelper(TraceWriter log, string functionDirectory)
         {
             MailSettings = new MailSettings();
             _logger = log;
-            _rawEmailText = File.ReadAllText("./emailTemplate.html");
+            _rawEmailText = File.ReadAllText($"{functionDirectory}\\emailTemplate.html");
         }
 
         public async Task SendMail(string mail, string name)
