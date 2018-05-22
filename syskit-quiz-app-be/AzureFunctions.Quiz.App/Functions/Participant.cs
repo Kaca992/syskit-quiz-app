@@ -33,6 +33,10 @@ namespace AzureFunctions.Quiz.App.Functions
             {
                 var newTestResult = await req.Content.ReadAsAsync<TestDTO>();
                 var result = await participantService.InsertNewTestResults(newTestResult);
+
+                var mailHelper = new MailHelper(log);
+                mailHelper.SendMail(newTestResult.Participant.Email.Trim(), newTestResult.Participant.Name);
+
                 return JsonHelpers.CreateResponse(result);
             }
             catch (ParticipantAlreadyPlayedException pe)
