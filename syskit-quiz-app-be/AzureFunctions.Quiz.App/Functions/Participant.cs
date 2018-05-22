@@ -34,8 +34,18 @@ namespace AzureFunctions.Quiz.App.Functions
                 var newTestResult = await req.Content.ReadAsAsync<TestDTO>();
                 var result = await participantService.InsertNewTestResults(newTestResult);
 
-                var mailHelper = new MailHelper(log);
-                mailHelper.SendMail(newTestResult.Participant.Email.Trim(), newTestResult.Participant.Name);
+                try
+                {
+                    if (result.CorrectAnswers >= Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["CorrectAnswersForMail"]))
+                    {
+                        var mailHelper = new MailHelper(log);
+                        mailHelper.SendMail(newTestResult.Participant.Email.Trim(), newTestResult.Participant.Name);
+                    }
+                }
+                catch(Exception e)
+                {
+                    log.Error(e.Message);
+                }
 
                 return JsonHelpers.CreateResponse(result);
             }

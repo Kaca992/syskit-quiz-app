@@ -1,65 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs.Host;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace AzureFunctions.Quiz.App.Utils
 {
     public class MailHelper
     {
-        public string FromMail { get; }
+        public MailSettings MailSettings { get; }
         private TraceWriter _logger;
+        private string _apiKey = System.Configuration.ConfigurationManager.AppSettings["SendGridAPI"];
+        private string _rawEmailText;
 
         public MailHelper(TraceWriter log)
         {
-            FromMail = "terminalserviceslog@gmail.com";
+            MailSettings = new MailSettings();
             _logger = log;
+            _rawEmailText = File.ReadAllText("./emailTemplate.html");
         }
 
-        private SmtpClient _client;
-        public SmtpClient SmtpClient
+        public async Task SendMail(string mail, string name)
         {
-            get
+            var client = new SendGridClient(_apiKey);
+            var msg = new SendGridMessage()
             {
-                if (_client == null)
-                {
-                    _client = new SmtpClient()
-                    {
-                        Port = 25,
-                        EnableSsl = false,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = false,
-                        Host = "mail.iskon.hr"
-                    };
-                }
+                From = new EmailAddress(MailSettings.FromMail, MailSettings.FromName),
+                Subject = "Summer Internship",
+                HtmlContent = insertNameToTemplate(name)
+            };
+            msg.AddTo(new EmailAddress(mail));
+            var response = await client.SendEmailAsync(msg);
+            var code = response.StatusCode;
 
-                return _client;
+            if (code == HttpStatusCode.Accepted)
+            {
+                _logger.Info("Email sent");
             }
         }
 
-        public void SendMail(string toEmail, string participantName)
+        private string insertNameToTemplate(string name)
         {
-
-            MailMessage mail = new MailMessage(FromMail, toEmail);
-
-            mail.Subject = "Ovo je testna porukica";
-            mail.Body = "Test body";
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
-
-            try
+            if (name == null)
             {
-                SmtpClient.Send(mail);
-                _logger.Info($"Email sent to {toEmail}.");
+                return _rawEmailText;
             }
-            catch (Exception ex)
-            {
-                _logger.Error("Error while sending mail", ex);
-            }
+
+            Regex rgx = new Regex(@"(\[name\])");
+            return rgx.Replace(_rawEmailText, name);
+        }
+    }
+
+    public class MailSettings
+    {
+        public string FromMail { get; }
+        public string FromName { get; }
+        public string Subject { get; }
+
+        public MailSettings()
+        {
+            FromMail = System.Configuration.ConfigurationManager.AppSettings["EmailAdress"];
+            FromName = "SysKit Team";
+            Subject = "";
         }
     }
 }
