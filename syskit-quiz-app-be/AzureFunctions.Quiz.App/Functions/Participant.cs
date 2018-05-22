@@ -36,7 +36,7 @@ namespace AzureFunctions.Quiz.App.Functions
 
                 try
                 {
-                    if (result.CorrectAnswers >= Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["CorrectAnswersForMail"]))
+                    //if (result.CorrectAnswers >= Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["CorrectAnswersForMail"]))
                     {
                         var mailHelper = new MailHelper(log);
                         mailHelper.SendMail(newTestResult.Participant.Email.Trim(), newTestResult.Participant.Name);
