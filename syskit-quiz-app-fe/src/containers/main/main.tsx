@@ -12,6 +12,7 @@ import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
 import { submitingResults } from 'common/strings';
 import { getQuestions } from '../../service/questions.service';
 import { ErrorComponent } from 'components/errorComponent/errorComponent';
+import { numberOfQuestions } from '../../assets/config.json';
 
 export interface IMainProps {
 
@@ -38,7 +39,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
     }
 
     public componentDidMount() {
-        return getQuestions().then(questions => {
+        return getQuestions(numberOfQuestions).then(questions => {
             this.setState({
                 questions
             });

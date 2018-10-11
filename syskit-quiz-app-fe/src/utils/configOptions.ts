@@ -1,3 +1,3 @@
 export function appendServiceApiEndpoint(url: string): string {
-    return `https://dinotestfunctions.azurewebsites.net/${url}`;
+    return process.env.NODE_ENV === "production" ? `https://dinotestfunctions.azurewebsites.net/${url}` : `http://localhost:7071/${url}`;
 }
