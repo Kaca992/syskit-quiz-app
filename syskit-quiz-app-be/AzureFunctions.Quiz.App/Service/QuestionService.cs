@@ -28,7 +28,8 @@ namespace AzureFunctions.Quiz.App.Service
                     var question = dbContext.Questions.Add(new Question()
                     {
                         QuestionText = newQuestion.QuestionText,
-                        IsEnabled = true
+                        IsEnabled = true,
+                        CategoryId = newQuestion.CategoryId
                     });
 
                     foreach (var questionAnswer in newQuestion.Answers)

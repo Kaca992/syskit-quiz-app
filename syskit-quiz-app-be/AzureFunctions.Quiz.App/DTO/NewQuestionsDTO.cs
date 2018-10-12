@@ -10,6 +10,7 @@ namespace AzureFunctions.Quiz.App.DTO
     {
         public string QuestionText { get; set; }
         public List<NewQuestionAnswersDTO> Answers { get; set; }
+        public int CategoryId { get; set; }
     }
 
     public class NewQuestionAnswersDTO

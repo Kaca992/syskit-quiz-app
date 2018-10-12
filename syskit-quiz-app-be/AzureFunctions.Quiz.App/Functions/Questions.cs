@@ -20,11 +20,10 @@ namespace AzureFunctions.Quiz.App.Functions
         {
             log.Info("C# HTTP Add Questions trigger function processed a request.");
 
-            var newQuestions = await req.Content.ReadAsAsync<List<NewQuestionsDTO>>();
-            var questionService = new QuestionService();
-
             try
             {
+                var newQuestions = await req.Content.ReadAsAsync<List<NewQuestionsDTO>>();
+                var questionService = new QuestionService();
                 await questionService.InsertNewQuestions(newQuestions);
             }
             catch (ArgumentException arg)

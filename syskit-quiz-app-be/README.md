@@ -43,7 +43,8 @@ Input: {
     "questionText": string,
     "answers": [
       {"answerText": string, "isCorrectAnswer?": "true" | "false" }
-    ]
+    ],
+	"categoryId": number
   }
 },
 Output: {}
