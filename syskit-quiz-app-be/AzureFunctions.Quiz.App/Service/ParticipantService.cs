@@ -56,11 +56,11 @@ namespace AzureFunctions.Quiz.App.Service
             }
         }
 
-        public List<ParticipantInfoDTO> GetAllParticipants()
+        public List<ParticipantInfoDTO> GetAllParticipants(int surveyId)
         {
             using (var dbContext = DbContextFactory.Instance.Context)
             {
-                return dbContext.Participants.OrderByDescending(x => x.Id).Select(x => new ParticipantInfoDTO()
+                return dbContext.Participants.Where(x => x.SurveyId == surveyId).OrderByDescending(x => x.Id).Select(x => new ParticipantInfoDTO()
                 {
                     Id = x.Id,
                     Name = x.Name,

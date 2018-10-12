@@ -32,11 +32,11 @@ export interface IMainState {
 export default class Main extends React.Component<IMainProps, IMainState> {
     private categoryInfos: IQuestionCategoryInfo[] = [{
         categoryId: 1,
-        text: "Programiranje"
+        text: "Programiram"
     },
     {
         categoryId: 2,
-        text: "Business"
+        text: "Ne programiram"
     }];
 
     constructor(props: IMainProps) {
@@ -63,7 +63,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
             case SelectedPageEnum.InfoEntry:
                 return <ParticipantContainer onStartQuizClicked={this._onStartQuiz} />;
             case SelectedPageEnum.CategoryChooser:
-                return <QuestionCategoryChooser categoryInfos={} />;
+                return <QuestionCategoryChooser categoryInfos={this.categoryInfos} onCategorySelected={this._onCategorySelected} />;
             case SelectedPageEnum.Questions:
                 const questions = this.state.questionsByCategory[this.state.selectedCategory];
                 return <QuizContainer questions={questions} onSubmitAnswers={this._onSubmitAnswers} />;
@@ -81,7 +81,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
     private _onStartQuiz(participantInfo: IParticipant) {
         this.setState({
             participantInfo,
-            selectedPage: SelectedPageEnum.Questions
+            selectedPage: SelectedPageEnum.CategoryChooser
         });
     }
 
@@ -108,6 +108,14 @@ export default class Main extends React.Component<IMainProps, IMainState> {
         this.setState({
             selectedPage: SelectedPageEnum.Error,
             exceptionMessage: error && error.body && error.body.Message
+        });
+    }
+
+    @autobind
+    private _onCategorySelected(categoryId: number) {
+        this.setState({
+            selectedPage: SelectedPageEnum.Questions,
+            selectedCategory: categoryId
         });
     }
 }

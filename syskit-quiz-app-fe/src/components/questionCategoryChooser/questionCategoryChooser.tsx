@@ -26,12 +26,12 @@ export default class QuestionCategoryChooser extends React.Component<IQuestionCa
         return (
             <div className="question-category-chooser">
                 {categoryInfos.map(categoryInfo => {
-                    return <Button
+                    return <div
                         key={categoryInfo.categoryId}
-                        className='button-primary question-category-chooser__button'
+                        className='question-category-chooser__button'
                         onClick={() => onCategorySelected(categoryInfo.categoryId)}>
                         {categoryInfo.text}
-                    </Button>;
+                    </div>;
                 })
             }
             </div>

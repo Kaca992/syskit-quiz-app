@@ -67,14 +67,14 @@ namespace AzureFunctions.Quiz.App.Functions
         /// <param name="log"></param>
         /// <returns></returns>
         [FunctionName("GetParticipants")]
-        public static HttpResponseMessage GetParticipants([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "participant")]HttpRequestMessage req, TraceWriter log)
+        public static HttpResponseMessage GetParticipants([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "participant/{number:int=10}")]HttpRequestMessage req, int surveyId, TraceWriter log)
         {
             log.Info("C# HTTP Get Participants trigger function processed a request.");
             var participantService = new ParticipantService();
 
             try
             {
-                return JsonHelpers.CreateResponse(participantService.GetAllParticipants());
+                return JsonHelpers.CreateResponse(participantService.GetAllParticipants(surveyId));
             }
             catch (Exception e)
             {
