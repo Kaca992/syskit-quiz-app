@@ -29,7 +29,8 @@ namespace AzureFunctions.Quiz.App.Service
                     Email = participantEmail,
                     Course = test.Participant.Course,
                     EnrollmentYear = test.Participant.EnrollmentYear,
-                    SurveyId = surveyId
+                    SurveyId = surveyId,
+                    CategoryId = test.CategoryId
                 });
 
                 var questionAnswerIds = test.Answers.Select(x => x.AnswerId).ToList();

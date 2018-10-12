@@ -24,6 +24,7 @@ export interface IParticipantAnswers {
 }
 
 export interface ITest {
+    categoryId: number;
     participant: IParticipant;
     answers: IParticipantAnswers[];
 }

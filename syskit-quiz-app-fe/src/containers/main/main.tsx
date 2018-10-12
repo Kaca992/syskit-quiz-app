@@ -93,7 +93,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
             loadingText: submitingResults
         });
 
-        addParticipant(this.state.participantInfo, answers).then(result => {
+        addParticipant(this.state.selectedCategory, this.state.participantInfo, answers).then(result => {
             this.setState({
                 selectedPage: SelectedPageEnum.Result,
                 participantResult: result
