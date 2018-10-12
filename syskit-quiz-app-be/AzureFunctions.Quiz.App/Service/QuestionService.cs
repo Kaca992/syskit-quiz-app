@@ -69,25 +69,31 @@ namespace AzureFunctions.Quiz.App.Service
             }
         }
 
-        public List<QuestionDTO> GetQuestions(int number)
+        public Dictionary<int, List<QuestionDTO>> GetQuestions(int number, IEnumerable<int> categories)
         {
-            List<QuestionDTO> questions = new List<QuestionDTO>();
+            Dictionary<int, List<QuestionDTO>> questions = new Dictionary<int, List<QuestionDTO>>();
             using (var dbContext = DbContextFactory.Instance.Context)
             {
-                var allQuestions = dbContext.Questions.Include("QuestionAnswers").Where(x => x.IsEnabled).OrderBy(x => Guid.NewGuid()).Take(number);
-                foreach (var question in allQuestions) {
-                    var questionDTO = new QuestionDTO()
+                foreach (var category in categories)
+                {
+                    questions.Add(category, new List<QuestionDTO>());
+                    var allQuestions = dbContext.Questions.Include("QuestionAnswers").Where(x => x.IsEnabled && x.CategoryId == category).OrderBy(x => Guid.NewGuid()).Take(number);
+                    foreach (var question in allQuestions)
                     {
-                        Id = question.Id,
-                        QuestionText = question.QuestionText,
-                        Answers = new List<AnswerDTO>()
-                    };
+                        var questionDTO = new QuestionDTO
+                        {
+                            Id = question.Id,
+                            QuestionText = question.QuestionText,
+                            Answers = new List<AnswerDTO>()
+                        };
 
-                    foreach (var questionAnswer in question.QuestionAnswers) {
-                        questionDTO.Answers.Add(new AnswerDTO() { Id = questionAnswer.Id, AnswerText = questionAnswer.AnswerText });
+                        foreach (var questionAnswer in question.QuestionAnswers)
+                        {
+                            questionDTO.Answers.Add(new AnswerDTO() { Id = questionAnswer.Id, AnswerText = questionAnswer.AnswerText });
+                        }
+
+                        questions[category].Add(questionDTO);
                     }
-
-                    questions.Add(questionDTO);
                 }
             }
 

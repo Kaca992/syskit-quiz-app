@@ -12,7 +12,7 @@ import { LoadingComponent } from 'components/loadingComponent/loadingComponent';
 import { submitingResults } from 'common/strings';
 import { getQuestions } from '../../service/questions.service';
 import { ErrorComponent } from 'components/errorComponent/errorComponent';
-import { numberOfQuestions } from '../../assets/config.json';
+import { numberOfQuestions, categories } from '../../assets/config.json';
 
 export interface IMainProps {
 
@@ -20,7 +20,8 @@ export interface IMainProps {
 
 export interface IMainState {
     selectedPage: SelectedPageEnum;
-    questions: IQuestion[];
+    questionsByCategory: { [categoryId: string]: IQuestion[] };
+    selectedCategory: number;
     participantInfo: IParticipant;
     participantResult: IParticipantResult;
     loadingText?: string;
@@ -32,17 +33,16 @@ export default class Main extends React.Component<IMainProps, IMainState> {
         super(props);
         this.state = {
             selectedPage: SelectedPageEnum.InfoEntry,
-            questions: [],
+            selectedCategory: 1,
+            questionsByCategory: {},
             participantInfo: null,
             participantResult: null
         };
     }
 
     public componentDidMount() {
-        return getQuestions(numberOfQuestions).then(questions => {
-            this.setState({
-                questions
-            });
+        return getQuestions({number: numberOfQuestions, categories: categories}).then(questionsByCategory => {
+            this.setState({questionsByCategory});
         }).catch(error => {
             this._onError(error);
         });
@@ -53,7 +53,8 @@ export default class Main extends React.Component<IMainProps, IMainState> {
             case SelectedPageEnum.InfoEntry:
                 return <ParticipantContainer onStartQuizClicked={this._onStartQuiz} />;
             case SelectedPageEnum.Questions:
-                return <QuizContainer questions={this.state.questions} onSubmitAnswers={this._onSubmitAnswers} />;
+                const questions = this.state.questionsByCategory[this.state.selectedCategory];
+                return <QuizContainer questions={questions} onSubmitAnswers={this._onSubmitAnswers} />;
             case SelectedPageEnum.Result:
                 const { correctAnswers, numberOfQuestions } = this.state.participantResult;
                 return <ResultComponent correctAnswers={correctAnswers} numberOfQuestions={numberOfQuestions} />;

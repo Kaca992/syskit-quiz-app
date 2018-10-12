@@ -32,3 +32,8 @@ export interface IParticipantResult {
     correctAnswers: number;
     numberOfQuestions: number;
 }
+
+export interface IQuestionRequest {
+    number: number;
+    categories: number[];
+}
