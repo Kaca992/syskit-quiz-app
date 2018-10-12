@@ -1,6 +1,6 @@
 import { fetcher } from "../utils/fetcher";
-import { IQuestion } from "common/data";
+import { IQuestion, IQuestionRequest } from "common/data";
 
-export function getQuestions(questionNumber: number = 10): Promise<IQuestion[]> {
-    return fetcher(`api/questions/${questionNumber}`, {hasResult: true});
+export function getQuestions(questionRequestInfo: IQuestionRequest): Promise<{ [categoryId: string]: IQuestion[] }> {
+    return fetcher(`api/questions/list`, {hasResult: true}, {method: 'POST', body: JSON.stringify(questionRequestInfo)});
 }

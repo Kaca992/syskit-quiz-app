@@ -3,5 +3,6 @@ export enum SelectedPageEnum {
     Questions,
     Result,
     Error,
-    Loading
+    Loading,
+    CategoryChooser
 }

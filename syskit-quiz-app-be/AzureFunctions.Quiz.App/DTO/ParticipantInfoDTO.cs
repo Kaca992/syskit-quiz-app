@@ -8,6 +8,7 @@ namespace AzureFunctions.Quiz.App.DTO
 {
     public class TestDTO
     {
+        public int CategoryId { get; set; }
         public ParticipantInfoDTO Participant { get; set; }
         public List<PrincipalAnswersDTO> Answers { get; set; }
     }

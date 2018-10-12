@@ -1,3 +1,4 @@
 {
-    "prizeTreshold": 6
+    "numberOfQuestions": 10,
+    "categories": [1, 2]
 }

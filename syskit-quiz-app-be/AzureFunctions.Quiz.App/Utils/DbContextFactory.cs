@@ -42,7 +42,7 @@ namespace AzureFunctions.Quiz.App.Utils
         /// </summary>
         private void setUpConnectionStrings()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            var connectionString = AppSettings.ConnectionString;
 
             EntityConnectionStringBuilder efBuilder;
             // ef connection string

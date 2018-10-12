@@ -12,25 +12,18 @@ namespace AzureFunctions.Quiz.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Participant
+    public partial class Survey
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Participant()
+        public Survey()
         {
-            this.QuestionAnswers = new HashSet<QuestionAnswer>();
+            this.Participants = new HashSet<Participant>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string Course { get; set; }
-        public string EnrollmentYear { get; set; }
-        public decimal Result { get; set; }
-        public int SurveyId { get; set; }
-        public Nullable<int> CategoryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
-        public virtual Survey Survey { get; set; }
+        public virtual ICollection<Participant> Participants { get; set; }
     }
 }

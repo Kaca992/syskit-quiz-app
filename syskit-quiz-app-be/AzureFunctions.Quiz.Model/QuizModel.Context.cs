@@ -28,5 +28,7 @@ namespace AzureFunctions.Quiz.Model
         public virtual DbSet<Participant> Participants { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        public virtual DbSet<QuestionCategory> QuestionCategories { get; set; }
+        public virtual DbSet<Survey> Surveys { get; set; }
     }
 }

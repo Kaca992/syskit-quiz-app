@@ -8,6 +8,7 @@ namespace AzureFunctions.Quiz.App.DTO
 {
     public class ParticipantResultDTO
     {
+        public int PrizeTreshold { get; set; }
         public int CorrectAnswers { get; set; }
         public int NumberOfQuestions { get; set; }
     }

@@ -16,8 +16,9 @@ namespace AzureFunctions.Quiz.App.Service
         {
             using (var dbContext = DbContextFactory.Instance.Context)
             {
+                var surveyId = AppSettings.SurveyId;
                 var participantEmail = test.Participant.Email.Trim();
-                if (dbContext.Participants.FirstOrDefault(x => x.Email.Equals(participantEmail, StringComparison.OrdinalIgnoreCase)) != null)
+                if (dbContext.Participants.FirstOrDefault(x => x.Email.Equals(participantEmail, StringComparison.OrdinalIgnoreCase) && x.SurveyId == surveyId) != null)
                 {
                     throw new ParticipantAlreadyPlayedException();
                 }
@@ -27,7 +28,9 @@ namespace AzureFunctions.Quiz.App.Service
                     Name = test.Participant.Name,
                     Email = participantEmail,
                     Course = test.Participant.Course,
-                    EnrollmentYear = test.Participant.EnrollmentYear
+                    EnrollmentYear = test.Participant.EnrollmentYear,
+                    SurveyId = surveyId,
+                    CategoryId = test.CategoryId
                 });
 
                 var questionAnswerIds = test.Answers.Select(x => x.AnswerId).ToList();
@@ -48,17 +51,18 @@ namespace AzureFunctions.Quiz.App.Service
 
                 return new ParticipantResultDTO()
                 {
+                    PrizeTreshold = AppSettings.PrizeTreshold,
                     CorrectAnswers = numberOfCorrectAnswers,
                     NumberOfQuestions = questionsIds.Count
                 };
             }
         }
 
-        public List<ParticipantInfoDTO> GetAllParticipants()
+        public List<ParticipantInfoDTO> GetAllParticipants(int surveyId)
         {
             using (var dbContext = DbContextFactory.Instance.Context)
             {
-                return dbContext.Participants.OrderByDescending(x => x.Id).Select(x => new ParticipantInfoDTO()
+                return dbContext.Participants.Where(x => x.SurveyId == surveyId).OrderByDescending(x => x.Id).Select(x => new ParticipantInfoDTO()
                 {
                     Id = x.Id,
                     Name = x.Name,

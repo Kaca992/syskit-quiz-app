@@ -3,7 +3,6 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
 import { IQuestion, IParticipantAnswers } from 'common/data';
-import { getQuestions } from '../../service/questions.service';
 import QuizComponent from 'components/quizComponent/quizComponent';
 import cloneDeep = require('lodash/cloneDeep');
 import { LoadingComponent } from 'components/loadingComponent/loadingComponent';

@@ -24,9 +24,11 @@ namespace AzureFunctions.Quiz.Model
         public string QuestionText { get; set; }
         public Nullable<int> CorrectAnswerId { get; set; }
         public bool IsEnabled { get; set; }
+        public int CategoryId { get; set; }
     
         public virtual QuestionAnswer QuestionAnswer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
+        public virtual QuestionCategory QuestionCategory { get; set; }
     }
 }

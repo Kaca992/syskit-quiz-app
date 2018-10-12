@@ -65,6 +65,8 @@
     <Build Include="dbo\Tables\Question.sql" />
     <Build Include="dbo\Tables\QuestionAnswer.sql" />
     <Build Include="dbo\Tables\ParticipantAnswers.sql" />
+    <Build Include="dbo\Tables\QuestionCategory.sql" />
+    <Build Include="dbo\Tables\Survey.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AzureFunctions.Quiz.Database.refactorlog" />

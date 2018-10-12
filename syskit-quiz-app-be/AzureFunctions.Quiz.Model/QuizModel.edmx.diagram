@@ -11,6 +11,10 @@
         <AssociationConnector Association="AzureFunctions.Quiz.DatabaseModel.FK_Question_CorrectAnswer" />
         <AssociationConnector Association="AzureFunctions.Quiz.DatabaseModel.FK_QuestionAnswer_Question" />
         <AssociationConnector Association="AzureFunctions.Quiz.DatabaseModel.ParticipantAnswers" />
+        <EntityTypeShape EntityType="AzureFunctions.Quiz.DatabaseModel.QuestionCategory" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="AzureFunctions.Quiz.DatabaseModel.Survey" Width="1.5" PointX="0.75" PointY="5.625" />
+        <AssociationConnector Association="AzureFunctions.Quiz.DatabaseModel.FK_Participant_Survey" />
+        <AssociationConnector Association="AzureFunctions.Quiz.DatabaseModel.FK_Question_QuestionCategory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

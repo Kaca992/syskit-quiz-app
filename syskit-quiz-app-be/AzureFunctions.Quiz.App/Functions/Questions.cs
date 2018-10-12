@@ -20,11 +20,10 @@ namespace AzureFunctions.Quiz.App.Functions
         {
             log.Info("C# HTTP Add Questions trigger function processed a request.");
 
-            var newQuestions = await req.Content.ReadAsAsync<List<NewQuestionsDTO>>();
-            var questionService = new QuestionService();
-
             try
             {
+                var newQuestions = await req.Content.ReadAsAsync<List<NewQuestionsDTO>>();
+                var questionService = new QuestionService();
                 await questionService.InsertNewQuestions(newQuestions);
             }
             catch (ArgumentException arg)
@@ -40,14 +39,15 @@ namespace AzureFunctions.Quiz.App.Functions
         }
 
         [FunctionName("GetQuestions")]
-        public static HttpResponseMessage GetQuestions([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "questions/{number:int=10}")]HttpRequestMessage req, int number, TraceWriter log)
+        public static async Task<HttpResponseMessage> GetQuestions([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "questions/list")]HttpRequestMessage req, TraceWriter log)
         {
             log.Info("C# HTTP Get Questions trigger function processed a request.");
 
             try
             {
+                var questionRequest = await req.Content.ReadAsAsync<QuestionRequestDTO>();
                 var questionService = new QuestionService();
-                return JsonHelpers.CreateResponse(questionService.GetQuestions(number));
+                return JsonHelpers.CreateResponse(questionService.GetQuestions(questionRequest.Number, questionRequest.Categories));
             }
             catch (Exception e)
             {
