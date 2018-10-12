@@ -11,6 +11,7 @@ namespace AzureFunctions.Quiz.App.Service
 {
     public class QuestionService
     {
+        private const int COMMON_ID = 3;
         public async Task InsertNewQuestions(List<NewQuestionsDTO> newQuestions)
         {
             if (newQuestions == null)
@@ -77,7 +78,7 @@ namespace AzureFunctions.Quiz.App.Service
                 foreach (var category in categories)
                 {
                     questions.Add(category, new List<QuestionDTO>());
-                    var allQuestions = dbContext.Questions.Include("QuestionAnswers").Where(x => x.IsEnabled && x.CategoryId == category).OrderBy(x => Guid.NewGuid()).Take(number);
+                    var allQuestions = dbContext.Questions.Include("QuestionAnswers").Where(x => x.IsEnabled && x.CategoryId == category || x.CategoryId == COMMON_ID).OrderBy(x => Guid.NewGuid()).Take(number);
                     foreach (var question in allQuestions)
                     {
                         var questionDTO = new QuestionDTO

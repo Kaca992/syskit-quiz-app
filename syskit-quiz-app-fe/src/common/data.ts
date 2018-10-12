@@ -37,3 +37,8 @@ export interface IQuestionRequest {
     number: number;
     categories: number[];
 }
+
+export interface IQuestionCategoryInfo {
+    categoryId: number;
+    text: string;
+}
