@@ -51,6 +51,7 @@ namespace AzureFunctions.Quiz.App.Service
 
                 return new ParticipantResultDTO()
                 {
+                    PrizeTreshold = AppSettings.PrizeTreshold,
                     CorrectAnswers = numberOfCorrectAnswers,
                     NumberOfQuestions = questionsIds.Count
                 };

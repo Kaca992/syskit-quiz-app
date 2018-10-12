@@ -68,8 +68,8 @@ export default class Main extends React.Component<IMainProps, IMainState> {
                 const questions = this.state.questionsByCategory[this.state.selectedCategory];
                 return <QuizContainer questions={questions} onSubmitAnswers={this._onSubmitAnswers} />;
             case SelectedPageEnum.Result:
-                const { correctAnswers } = this.state.participantResult;
-                return <ResultComponent correctAnswers={correctAnswers} numberOfQuestions={numberOfQuestions} />;
+                const { correctAnswers, prizeTreshold } = this.state.participantResult;
+                return <ResultComponent prizeTreshold={prizeTreshold} correctAnswers={correctAnswers} numberOfQuestions={numberOfQuestions} />;
             case SelectedPageEnum.Loading:
                 return <LoadingComponent text={this.state.loadingText} />;
             case SelectedPageEnum.Error:

@@ -30,6 +30,7 @@ export interface ITest {
 }
 
 export interface IParticipantResult {
+    prizeTreshold: number;
     correctAnswers: number;
     numberOfQuestions: number;
 }

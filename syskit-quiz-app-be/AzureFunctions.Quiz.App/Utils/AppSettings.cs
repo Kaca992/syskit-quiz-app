@@ -20,5 +20,7 @@ namespace AzureFunctions.Quiz.App.Utils
         public static string MailAdress => System.Configuration.ConfigurationManager.AppSettings["EmailAdress"];
 
         public static int SurveyId => Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["SurveyId"]);
+
+        public static int PrizeTreshold => Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["PrizeTreshold"]);
     }
 }

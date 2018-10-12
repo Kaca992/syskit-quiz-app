@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
-import { prizeTreshold } from '../../assets/config.json';
 
 import './resultComponent.scss';
 import * as _ from 'lodash';
@@ -10,11 +9,12 @@ import * as _ from 'lodash';
 export interface IResultComponentProps {
     correctAnswers: number;
     numberOfQuestions: number;
+    prizeTreshold: number;
 }
 
 export default class ResultComponent extends React.PureComponent<IResultComponentProps> {
     public render() {
-        const { correctAnswers, numberOfQuestions } = this.props;
+        const { correctAnswers, numberOfQuestions, prizeTreshold } = this.props;
         const didWinPrize = correctAnswers >= prizeTreshold;
         const msg = didWinPrize ? "Dođite do našeg štanda po nagradu!" : "Hvala Vam na sudjelovanju!";
 
