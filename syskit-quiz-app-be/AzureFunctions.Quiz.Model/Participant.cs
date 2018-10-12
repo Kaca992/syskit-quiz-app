@@ -26,8 +26,10 @@ namespace AzureFunctions.Quiz.Model
         public string Course { get; set; }
         public string EnrollmentYear { get; set; }
         public decimal Result { get; set; }
+        public int SurveyId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
+        public virtual Survey Survey { get; set; }
     }
 }

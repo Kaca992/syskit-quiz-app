@@ -59,6 +59,9 @@
     <Compile Include="QuestionAnswer.cs">
       <DependentUpon>QuizModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="QuestionCategory.cs">
+      <DependentUpon>QuizModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="QuizModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,6 +78,9 @@
       <DependentUpon>QuizModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="QuizModelPartial.cs" />
+    <Compile Include="Survey.cs">
+      <DependentUpon>QuizModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
