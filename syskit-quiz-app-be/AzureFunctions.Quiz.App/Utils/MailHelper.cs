@@ -17,7 +17,7 @@ namespace AzureFunctions.Quiz.App.Utils
     {
         public MailSettings MailSettings { get; }
         private TraceWriter _logger;
-        private string _apiKey = System.Configuration.ConfigurationManager.AppSettings["SendGridAPI"];
+        private string _apiKey = AppSettings.MailApiKey;
         private string _rawEmailText;
 
         public MailHelper(TraceWriter log, string appDirectory)
@@ -66,7 +66,7 @@ namespace AzureFunctions.Quiz.App.Utils
 
         public MailSettings()
         {
-            FromMail = System.Configuration.ConfigurationManager.AppSettings["EmailAdress"];
+            FromMail = AppSettings.MailAdress;
             FromName = "SysKit Team";
             Subject = "";
         }

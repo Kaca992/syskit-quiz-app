@@ -16,8 +16,9 @@ namespace AzureFunctions.Quiz.App.Service
         {
             using (var dbContext = DbContextFactory.Instance.Context)
             {
+                var surveyId = AppSettings.SurveyId;
                 var participantEmail = test.Participant.Email.Trim();
-                if (dbContext.Participants.FirstOrDefault(x => x.Email.Equals(participantEmail, StringComparison.OrdinalIgnoreCase)) != null)
+                if (dbContext.Participants.FirstOrDefault(x => x.Email.Equals(participantEmail, StringComparison.OrdinalIgnoreCase) && x.SurveyId == surveyId) != null)
                 {
                     throw new ParticipantAlreadyPlayedException();
                 }
@@ -27,7 +28,8 @@ namespace AzureFunctions.Quiz.App.Service
                     Name = test.Participant.Name,
                     Email = participantEmail,
                     Course = test.Participant.Course,
-                    EnrollmentYear = test.Participant.EnrollmentYear
+                    EnrollmentYear = test.Participant.EnrollmentYear,
+                    SurveyId = surveyId
                 });
 
                 var questionAnswerIds = test.Answers.Select(x => x.AnswerId).ToList();
