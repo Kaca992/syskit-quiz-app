@@ -13,13 +13,15 @@ export function emptyAndNonWhitespaceInput(newInput: string) {
 }
 
 export function emailFormValidation(email: string) {
+    const cleanEmail = email ? email.trim() : email;
+
     const regex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
-    const check = emptyAndNonWhitespaceInput(email);
+    const check = emptyAndNonWhitespaceInput(cleanEmail);
     if (check) {
         return check;
     }
 
-    if (!regex.test(email)) {
+    if (!regex.test(cleanEmail)) {
         return emailInvalid;
     }
 
