@@ -21,6 +21,7 @@ namespace AzureFunctions.Quiz.App.DTO
         public string Course { get; set; }
         public string EnrollmentYear { get; set; }
         public decimal Result { get; set; }
+        public int CategoryId { get; set; }
     }
 
     public class PrincipalAnswersDTO

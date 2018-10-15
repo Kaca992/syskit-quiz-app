@@ -69,7 +69,8 @@ namespace AzureFunctions.Quiz.App.Service
                     Email = x.Email,
                     Course = x.Course,
                     EnrollmentYear = x.EnrollmentYear,
-                    Result = x.Result
+                    Result = x.Result,
+                    CategoryId = x.CategoryId ?? -1
                 }).ToList();
             }
         }
