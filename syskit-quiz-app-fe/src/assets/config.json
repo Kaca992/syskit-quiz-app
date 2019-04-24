@@ -1,4 +1,5 @@
 {
     "numberOfQuestions": 10,
-    "categories": [1, 2]
+    "categories": [1, 2],
+    "serviceEndpoint": "https://quiz-app-functions.azurewebsites.net/"
 }
