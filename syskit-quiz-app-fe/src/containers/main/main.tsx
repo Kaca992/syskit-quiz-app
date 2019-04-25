@@ -78,10 +78,12 @@ export default class Main extends React.Component<IMainProps, IMainState> {
     }
 
     @autobind
+    // TODO: if you want categories change selected page to CategoryChooser and dont HC selectedCategory
     private _onStartQuiz(participantInfo: IParticipant) {
         this.setState({
             participantInfo,
-            selectedPage: SelectedPageEnum.CategoryChooser
+            selectedPage: SelectedPageEnum.Questions,
+            selectedCategory: 1
         });
     }
 
